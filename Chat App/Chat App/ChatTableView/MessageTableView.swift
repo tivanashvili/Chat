@@ -15,7 +15,7 @@ class MessageTableView: UITableView, UITableViewDataSource, UITableViewDelegate 
 
         data = ["Item 1", "Item 2", "Item 3"]
         
-        super.init(frame: frame, style: style)
+        super.init(frame: .zero, style: style)
         
         dataSource = self
         delegate = self

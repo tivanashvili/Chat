@@ -21,7 +21,7 @@ class TextInputComponentView : UIView, UITextViewDelegate {
     // MARK: init
     init(frame: CGRect, textInputComponentModel: TextInputComponentViewModel) {
         self.textInputComponentModel = textInputComponentModel
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setUp()
     }
 
@@ -57,7 +57,7 @@ class TextInputComponentView : UIView, UITextViewDelegate {
     }
     
     private func setUpButton() {
-            button.setImage(UIImage(named: textInputComponentModel.sendButtonImageName), for: .normal)
+        button.setImage(UIImage(named: textInputComponentModel.sendButtonImageName), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(button)
     }

@@ -17,7 +17,7 @@ class SeparatorView: UIView {
     // MARK: - init
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setUp()
     }
 

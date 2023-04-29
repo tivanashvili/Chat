@@ -14,6 +14,8 @@
 		855EBC3F29FD2FAE00F49C9C /* TextInputComponentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3E29FD2FAE00F49C9C /* TextInputComponentViewModel.swift */; };
 		855EBC4129FD2FDC00F49C9C /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4029FD2FDC00F49C9C /* ImageNames.swift */; };
 		855EBC4329FD2FF300F49C9C /* CommonConstatns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4229FD2FF300F49C9C /* CommonConstatns.swift */; };
+		855EBC4629FD540600F49C9C /* SwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4529FD540600F49C9C /* SwitcherView.swift */; };
+		855EBC4B29FD7FE000F49C9C /* SwitcherViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */; };
 		85936E1C29FBF8C5001AE1FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */; };
 		85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */; };
 		85936E2029FBF8C5001AE1FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1F29FBF8C5001AE1FE /* ViewController.swift */; };
@@ -31,6 +33,8 @@
 		855EBC3E29FD2FAE00F49C9C /* TextInputComponentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputComponentViewModel.swift; sourceTree = "<group>"; };
 		855EBC4029FD2FDC00F49C9C /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
 		855EBC4229FD2FF300F49C9C /* CommonConstatns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonConstatns.swift; sourceTree = "<group>"; };
+		855EBC4529FD540600F49C9C /* SwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherView.swift; sourceTree = "<group>"; };
+		855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherViewExtension.swift; sourceTree = "<group>"; };
 		85936E1829FBF8C5001AE1FE /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +99,22 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		855EBC4429FD53AE00F49C9C /* Switcher */ = {
+			isa = PBXGroup;
+			children = (
+				855EBC4529FD540600F49C9C /* SwitcherView.swift */,
+			);
+			path = Switcher;
+			sourceTree = "<group>";
+		};
+		855EBC4929FD7FB800F49C9C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		85936E0F29FBF8C5001AE1FE = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +138,9 @@
 				855EBC3429FD2E1800F49C9C /* TextInputComponent */,
 				855EBC3329FD2E0200F49C9C /* ChatTableView */,
 				855EBC3229FD2DE600F49C9C /* ChatComponent */,
+				855EBC4429FD53AE00F49C9C /* Switcher */,
 				855EBC3129FD2DC500F49C9C /* SeparatorViewComponent */,
+				855EBC4929FD7FB800F49C9C /* Extensions */,
 				85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */,
 				85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */,
 				85936E1F29FBF8C5001AE1FE /* ViewController.swift */,
@@ -203,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85936E2029FBF8C5001AE1FE /* ViewController.swift in Sources */,
+				855EBC4629FD540600F49C9C /* SwitcherView.swift in Sources */,
 				855EBC4329FD2FF300F49C9C /* CommonConstatns.swift in Sources */,
 				85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */,
 				855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */,
@@ -212,6 +235,7 @@
 				85936E1C29FBF8C5001AE1FE /* AppDelegate.swift in Sources */,
 				855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */,
 				85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */,
+				855EBC4B29FD7FE000F49C9C /* SwitcherViewExtension.swift in Sources */,
 				855EBC3B29FD2F7400F49C9C /* MessageTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
