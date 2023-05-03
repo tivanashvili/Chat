@@ -7,17 +7,22 @@
 
 import UIKit
 
-class SwitcherView: UIView {
+final class SwitcherView: UIView {
     
     // MARK: variables
     private var modeButton = UIButton()
+    
     var isDarkMode = false {
         didSet {
-            overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+            if let vc = self.next as? UIViewController {
+                vc.setNeedsStatusBarAppearanceUpdate()
+            }
+           // overrideUserInterfaceStyle = isDarkMode ? .light : .dark
             updateModeButtonImage()
             NotificationCenter.default.post(name: Notification.Name("modeChanged"), object: nil, userInfo: ["isDarkMode": isDarkMode])
         }
     }
+    
     private var modeButtonImageName = ImageNames.lightModeSwitchButton
     
     // MARK: init
@@ -27,7 +32,7 @@ class SwitcherView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureModeButton() {
@@ -46,5 +51,3 @@ class SwitcherView: UIView {
         modeButton.setImage(UIImage(named: modeButtonImageName), for: .normal)
     }
 }
-
-

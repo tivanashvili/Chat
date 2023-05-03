@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatView: UIView {
+final class ChatView: UIView {
 
     private let chatView = UIView()
     private let messageTableView = MessageTableView()
@@ -20,8 +20,7 @@ class ChatView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUp()
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func setUp(){

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SeparatorView: UIView {
+final class SeparatorView: UIView {
     
     // MARK: - variables
     
@@ -22,8 +22,7 @@ class SeparatorView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUp()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setUp(){
@@ -32,17 +31,17 @@ class SeparatorView: UIView {
     }
     
     private func setUpSeparatorView() {
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.backgroundColor = UIColor(red: 0.97, green: 0.81, blue: 0.50, alpha: 1.0)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.backgroundColor = UIColor(hex: "F7CE7F").cgColor
     }
     
     private func setUpLayoutConstraints(){
         addSubview(separatorView)
         NSLayoutConstraint.activate([
-            separatorView.topAnchor.constraint(equalTo: topAnchor),
-            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: viewHeight)
+            self.topAnchor.constraint(equalTo: topAnchor),
+            self.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.heightAnchor.constraint(equalToConstant: viewHeight)
         ])
     }
     

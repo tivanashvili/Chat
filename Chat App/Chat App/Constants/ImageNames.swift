@@ -10,3 +10,4 @@ enum ImageNames {
     public static let lightModeSwitchButton = "lightModeSwitch"
     public static let darkModeSwitchButton = "darkModeSwitch"
 }
+

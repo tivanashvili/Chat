@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     private let separatorView = SeparatorView()
     private let bottomChatView = ChatView()
     let switcherView = SwitcherView()
-
+    let messageTableView = MessageTableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
             switcherView.heightAnchor.constraint(equalToConstant: 27),
             switcherView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             switcherView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            leadingConstraint
+            leadingConstraint,
         ])
     }
 }

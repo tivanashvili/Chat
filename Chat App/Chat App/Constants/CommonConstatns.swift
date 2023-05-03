@@ -8,3 +8,4 @@
 enum CommonConstants {
     public static let MessageComponentPlaceHolder = "დაწერე შეტყობინება..."
 }
+
