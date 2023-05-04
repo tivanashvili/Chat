@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     private let separatorView = SeparatorView()
     private let bottomChatView = ChatView()
     let switcherView = SwitcherView()
-    let messageTableView = MessageTableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

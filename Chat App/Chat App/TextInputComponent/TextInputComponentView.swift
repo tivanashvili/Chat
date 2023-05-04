@@ -20,8 +20,6 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
     
     private var containerViewHeightConstraint: NSLayoutConstraint!
     
-    private let messageTableView = MessageTableView()
-    
     // MARK: init
     init(frame: CGRect, textInputComponentModel: TextInputComponentViewModel) {
         self.textInputComponentModel = textInputComponentModel
@@ -110,10 +108,9 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        print("Text view did change")
         guard let font = textView.font else { return }
 
-        let maxHeight: CGFloat = 114
+        let maxHeight: CGFloat = 153.0
         let minHeight: CGFloat = 56
         let maxNumberOfLines = 5
         let numberOfLinesInText = textView.calculateLineCount()
@@ -128,7 +125,7 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
             containerViewHeightConstraint.constant = maxHeight
         } else {
             textView.isScrollEnabled = false
-            containerViewHeightConstraint.constant = newHeight + 24
+            containerViewHeightConstraint.constant = newHeight
         }
 
         textView.constraints.forEach { (constraint) in

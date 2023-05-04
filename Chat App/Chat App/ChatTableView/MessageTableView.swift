@@ -145,53 +145,53 @@ class ChatBubbleTableViewCell: UITableViewCell {
 
 
 
-class ChatMessage {
-    let text: String
-    let isFromSender: Bool
-    
-    init(text: String, isFromSender: Bool) {
-        self.text = text
-        self.isFromSender = isFromSender
-    }
-}
-
-class MessageTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
-    
-    var data: [String]
-    
-    override init(frame: CGRect, style: UITableView.Style) {
-        data = ["Item 1", "Item 2", "Item 3"]
-        
-        super.init(frame: .zero, style: style)
-        
-        dataSource = self
-        delegate = self
-        
-        register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        backgroundColor = .green
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected item \(indexPath.row + 1)")
-    }
-}
+//class ChatMessage {
+//    let text: String
+//    let isFromSender: Bool
+//    
+//    init(text: String, isFromSender: Bool) {
+//        self.text = text
+//        self.isFromSender = isFromSender
+//    }
+//}
+//
+//class MessageTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
+//    
+//    var data: [String]
+//    
+//    override init(frame: CGRect, style: UITableView.Style) {
+//        data = ["Item 1", "Item 2", "Item 3"]
+//        
+//        super.init(frame: .zero, style: style)
+//        
+//        dataSource = self
+//        delegate = self
+//        
+//        register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        
+//        backgroundColor = .green
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        data.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell()
+////        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("Selected item \(indexPath.row + 1)")
+//    }
+//}
 
