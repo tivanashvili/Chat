@@ -7,47 +7,55 @@
 
 import UIKit
 
-final class SwitcherView: UIView {
+protocol DayLightSwitchDelegate: AnyObject {
+    func didToggleDayLightSwitch(isOn: Bool)
+}
+
+class DayLightSwitch: UIButton {
     
-    // MARK: variables
-    private var modeButton = UIButton()
+    // MARK: Components
     
-    var isDarkMode = false {
-        didSet {
-            if let vc = self.next as? UIViewController {
-                vc.setNeedsStatusBarAppearanceUpdate()
-            }
-           // overrideUserInterfaceStyle = isDarkMode ? .light : .dark
-            updateModeButtonImage()
-            NotificationCenter.default.post(name: Notification.Name("modeChanged"), object: nil, userInfo: ["isDarkMode": isDarkMode])
-        }
-    }
+    private let button = UIButton(type: .system)
+    private let dayImage = UIImage(named: Constants.ImageNames.lightModeSwitchButton)
+    private let nightImage = UIImage(named: Constants.ImageNames.darkModeSwitchButton)
+    private var isOn:Bool = false
     
-    private var modeButtonImageName = ImageNames.lightModeSwitchButton
+    weak var delegate: DayLightSwitchDelegate!
     
-    // MARK: init
-    override init(frame: CGRect) {
+    // MARK: Init
+    
+    init(isOn: Bool) {
         super.init(frame: .zero)
-        configureModeButton()
+        self.isOn = isOn
+        configureButton()
+        addSubviews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureModeButton() {
-        modeButton.translatesAutoresizingMaskIntoConstraints = false
-        modeButton.addTarget(self, action: #selector(toggleMode), for: .touchUpInside)
-        updateModeButtonImage()
-        addSubview(modeButton)
+    // MARK: - Private Methods
+    
+    private func configureButton() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        setButtonImage()
     }
     
-    @objc private func toggleMode() {
-        isDarkMode.toggle()
+    private func addSubviews() {
+        addSubview(button)
     }
     
-    private func updateModeButtonImage() {
-        modeButtonImageName = isDarkMode ? ImageNames.darkModeSwitchButton : ImageNames.lightModeSwitchButton
-        modeButton.setImage(UIImage(named: modeButtonImageName), for: .normal)
+    @objc private func buttonTapped() {
+        isOn = !isOn
+        setButtonImage()
+        delegate.didToggleDayLightSwitch(isOn: isOn)
+    }
+    
+    private func setButtonImage(){
+        button.setImage(!isOn ? dayImage : nightImage, for: .normal)
     }
 }
+
+

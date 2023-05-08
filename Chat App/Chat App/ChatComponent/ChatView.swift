@@ -11,16 +11,20 @@ final class ChatView: UIView {
     
     //MARK: variables
     
-    private let chatView = UIView()
-    private let textInputComponentView = TextInputComponentView(frame: CGRect(), textInputComponentModel: TextInputComponentViewModel(placeHolder: CommonConstants.MessageComponentPlaceHolder, sendButtonImageName: ImageNames.SendButton))
-    public var data = ["item1", "item2", "item3"]
+    private let textInputComponentView = TextInputComponentView()
+    private var messages = [
+        Message(text: "Hello", date: Date()),
+        Message(text: "How are you?", date: Date()),
+        Message(text: "I'm doing well, thanks!", date: Date())
+    ]
+
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "MessageTableViewCell")
+        tableView.backgroundColor = .red
         return tableView
     }()
 
@@ -42,61 +46,58 @@ final class ChatView: UIView {
     }
 
     private func setUpChatView(){
-        chatView.translatesAutoresizingMaskIntoConstraints = false
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setUpTextInputComponentView(){
         textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
-        chatView.addSubview(textInputComponentView)
+        self.addSubview(textInputComponentView)
     }
     
     private func setUpTableView() {
-        chatView.addSubview(tableView)
+        self.addSubview(tableView)
     }
 
     // MARK : layout constraints
     private func setUpLayoutConstraints(){
-        addSubview(chatView)
         NSLayoutConstraint.activate([
-            chatView.topAnchor.constraint(equalTo: topAnchor),
-            chatView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            chatView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            chatView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.topAnchor.constraint(equalTo: topAnchor),
+            self.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            tableView.topAnchor.constraint(equalTo: chatView.topAnchor, constant: 5),
+            tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.TableViewConstraints.top),
             tableView.bottomAnchor.constraint(equalTo: textInputComponentView.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: chatView.leadingAnchor, constant: 5),
-            tableView.trailingAnchor.constraint(equalTo: chatView.trailingAnchor, constant: -5),
+            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.TableViewConstraints.top),
 
             textInputComponentView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
-            textInputComponentView.bottomAnchor.constraint(equalTo: chatView.bottomAnchor),
-            textInputComponentView.trailingAnchor.constraint(equalTo: chatView.trailingAnchor),
-            textInputComponentView.leadingAnchor.constraint(equalTo: chatView.leadingAnchor)
+            textInputComponentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            textInputComponentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            textInputComponentView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
         ])
     }
 }
 
-extension ChatView: UITableViewDelegate, UITableViewDataSource{
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+extension ChatView: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.count
+        messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as! MessageTableViewCell
+        let message = messages[indexPath.row]
+        cell.configure(with: message)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected item \(indexPath.row + 1)")
-    }
     
-    
-    
+}
+
+struct Message {
+    let text: String
+    let date: Date
 }
 
 

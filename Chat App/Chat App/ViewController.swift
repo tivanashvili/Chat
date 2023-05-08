@@ -10,9 +10,9 @@ import UIKit
 class ViewController: UIViewController {
 
     private let topChatView = ChatView()
-    private let separatorView = SeparatorView()
+    private let separatorView = UIView()
     private let bottomChatView = ChatView()
-    let switcherView = SwitcherView()
+    private let switchButton = DayLightSwitch(isOn: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +20,10 @@ class ViewController: UIViewController {
         view.addSubview(topChatView)
         view.addSubview(separatorView)
         view.addSubview(bottomChatView)
-        view.addSubview(switcherView)
+        view.addSubview(switchButton)
+        separatorView.backgroundColor = Constants.ChatAppColors.separatorViewColor
         setUpConstraintsForSubviews()
+        switchButton.delegate = self
     }
 
     // MARK: layout constraints
@@ -29,33 +31,47 @@ class ViewController: UIViewController {
         topChatView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         bottomChatView.translatesAutoresizingMaskIntoConstraints = false
-        switcherView.translatesAutoresizingMaskIntoConstraints = false
-        let leadingConstraint = switcherView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 309)
-        leadingConstraint.priority = UILayoutPriority(rawValue: 999)
+        switchButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            topChatView.topAnchor.constraint(equalTo: switcherView.bottomAnchor, constant: 16),
+            topChatView.topAnchor.constraint(equalTo: switchButton.bottomAnchor),
             topChatView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            topChatView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -30),
+            topChatView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: Constants.TopChatViewConstraints.bottom),
             topChatView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
             separatorView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             separatorView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            separatorView.topAnchor.constraint(equalTo: topChatView.bottomAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: Constants.SeparatorView.viewHeight),
             
             bottomChatView.topAnchor.constraint(equalTo: separatorView.bottomAnchor),
             bottomChatView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bottomChatView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             bottomChatView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            switcherView.widthAnchor.constraint(equalToConstant: 54),
-            switcherView.heightAnchor.constraint(equalToConstant: 27),
-            switcherView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            switcherView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            leadingConstraint,
+            switchButton.widthAnchor.constraint(equalToConstant: 54),
+            switchButton.heightAnchor.constraint(equalToConstant: 27),
+            switchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            switchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12)
         ])
     }
 }
 
-
-
+extension ViewController: DayLightSwitchDelegate
+{
+    
+    func didToggleDayLightSwitch(isOn: Bool) {
+        if isOn {
+            // Dark mode is on
+            topChatView.backgroundColor = Constants.ChatAppColors.darkModeColor
+            bottomChatView.backgroundColor = Constants.ChatAppColors.darkModeColor
+            separatorView.backgroundColor = Constants.ChatAppColors.darkModeColor
+        } else {
+            // Day mode is on
+            topChatView.backgroundColor = .clear
+            bottomChatView.backgroundColor = .clear
+            separatorView.backgroundColor = .clear
+        }
+    }
+}

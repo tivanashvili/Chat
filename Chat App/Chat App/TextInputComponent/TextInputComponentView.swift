@@ -7,22 +7,19 @@
 
 import UIKit
 
-final class TextInputComponentView: UIView, UITextViewDelegate {
+final class TextInputComponentView: UIView{
     
-    // MARK: variables
+    // MARK: Components
     private let containerView = UIView()
     
     private let textView = UITextView()
-    
-    private var textInputComponentModel: TextInputComponentViewModel
     
     private let button = UIButton()
     
     private var containerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: init
-    init(frame: CGRect, textInputComponentModel: TextInputComponentViewModel) {
-        self.textInputComponentModel = textInputComponentModel
+    init() {
         super.init(frame: .zero)
         setUp()
     }
@@ -41,18 +38,18 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
     
     private func setUpContainerView() {
         containerView.layer.borderWidth = 1.0
-        containerView.layer.borderColor = UIColor(hex: "9F60FF").cgColor
+        containerView.layer.borderColor = Constants.ChatAppColors.containerViewBorderColor.cgColor
         containerView.layer.cornerRadius = 28
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
     }
     
     private func setUpTextView() {
-        textView.text = textInputComponentModel.placeHolder
+        textView.text = Constants.TextView.placeHolder
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
         textView.isEditable = true
-        textView.textColor = UIColor(hex: "C7C7C7")
+        textView.textColor = Constants.ChatAppColors.placeholderColor
         textView.delegate = self
         textView.contentOffset = CGPoint(x: 0, y: (textView.contentSize.height - textView.frame.height) / 2)
         textView.textContainerInset = UIEdgeInsets(top: 19, left: 22, bottom: 19, right: 0)
@@ -62,7 +59,7 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
     }
     
     private func setUpButton() {
-        button.setImage(UIImage(named: textInputComponentModel.sendButtonImageName), for: .normal)
+        button.setImage(UIImage(named:Constants.ImageNames.SendButton ), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(button)
     }
@@ -70,76 +67,72 @@ final class TextInputComponentView: UIView, UITextViewDelegate {
     // MARK: layout constraints
     private func setUpLayoutConstraints() {
         addSubview(containerView)
-       containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 56)
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: Constants.ContainerViewConstraints.height)
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.ContainerViewConstraints.side),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.ContainerViewConstraints.side),
+            containerViewHeightConstraint,
             
-            textView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
-            textView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0),
-            textView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
-            textView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -5),
+            textView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            textView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: Constants.TextViewConstraints.side),
             
-            button.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
-            button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12),
-            button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
-            button.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 32),
-            button.widthAnchor.constraint(equalToConstant: 32),
-            containerViewHeightConstraint
+            button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: Constants.ButtonConstraints.bottom),
+            button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: Constants.ButtonConstraints.trailing),
+            button.heightAnchor.constraint(equalToConstant: Constants.ButtonConstraints.height),
+            button.widthAnchor.constraint(equalToConstant: Constants.ButtonConstraints.width),
         ])
     }
-
-    // MARK: delegates
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor(hex: "C7C7C7") {
-            textView.text = nil
-            textView.textColor = UIColor(hex: "191919")
-        }
-    }
+}
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = textInputComponentModel.placeHolder
-            textView.textColor = UIColor(hex: "C7C7C7")
-        }
-    }
-
-    func textViewDidChange(_ textView: UITextView) {
-        guard let font = textView.font else { return }
-
-        let maxHeight: CGFloat = 153.0
-        let minHeight: CGFloat = 56
-        let maxNumberOfLines = 5
-        let numberOfLinesInText = textView.calculateLineCount()
-
-        let size = CGSize(width: textView.frame.width - 24, height: textView.contentSize.height)
-        let estimatedSize = textView.sizeThatFits(size)
-        let numLines = Int(ceil(textView.contentSize.height / font.lineHeight))
-        let newHeight = max(minHeight, min(estimatedSize.height, CGFloat(numLines) * font.lineHeight, maxHeight))
-
-        if numberOfLinesInText > maxNumberOfLines {
-            textView.isScrollEnabled = true
-            containerViewHeightConstraint.constant = maxHeight
-        } else {
-            textView.isScrollEnabled = false
-            containerViewHeightConstraint.constant = newHeight
-        }
-
-        textView.constraints.forEach { (constraint) in
-            if constraint.firstAttribute == .height {
-                constraint.constant = newHeight
+    extension TextInputComponentView: UITextViewDelegate{
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            if textView.textColor == Constants.ChatAppColors.placeholderColor{
+                textView.text = ""
+                textView.textColor = Constants.ChatAppColors.lightModeTextColor
             }
         }
         
-        containerView.layoutIfNeeded()
-    }
-    
-    
+        func textViewDidEndEditing(_ textView: UITextView) {
+            if textView.text.isEmpty {
+                textView.text = Constants.TextView.placeHolder
+                textView.textColor = Constants.ChatAppColors.placeholderColor
+            }
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            guard let font = textView.font else { return }
+            
+            let maxHeight: CGFloat = 114.0
+            let minHeight: CGFloat = 56
+            let maxNumberOfLines = 5
+            let numberOfLinesInText = textView.calculateLineCount()
+            
+            let size = CGSize(width: textView.frame.width - 24, height: textView.contentSize.height)
+            let estimatedSize = textView.sizeThatFits(size)
+            let numLines = Int(ceil(textView.contentSize.height / font.lineHeight))
+            let newHeight = max(minHeight, min(estimatedSize.height, CGFloat(numLines) * font.lineHeight, maxHeight))
+            
+            if numberOfLinesInText > maxNumberOfLines {
+                textView.isScrollEnabled = true
+                containerViewHeightConstraint.constant = maxHeight
+            } else {
+                textView.isScrollEnabled = false
+                containerViewHeightConstraint.constant = newHeight
+            }
+            
+            textView.constraints.forEach { (constraint) in
+                if constraint.firstAttribute == .height {
+                    constraint.constant = newHeight
+                }
+            }
+            
+            containerView.layoutIfNeeded()
+        }
 }
-
 extension UITextView {
     func calculateLineCount() -> Int {
         let textLayoutManager = self.layoutManager

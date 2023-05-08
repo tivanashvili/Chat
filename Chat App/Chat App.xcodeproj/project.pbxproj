@@ -7,16 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		855EBC3729FD2F2E00F49C9C /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3629FD2F2E00F49C9C /* SeparatorView.swift */; };
 		855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3829FD2F4A00F49C9C /* ChatView.swift */; };
-		855EBC3B29FD2F7400F49C9C /* MessageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3A29FD2F7400F49C9C /* MessageTableView.swift */; };
 		855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3C29FD2F9700F49C9C /* TextInputComponentView.swift */; };
-		855EBC3F29FD2FAE00F49C9C /* TextInputComponentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3E29FD2FAE00F49C9C /* TextInputComponentViewModel.swift */; };
-		855EBC4129FD2FDC00F49C9C /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4029FD2FDC00F49C9C /* ImageNames.swift */; };
 		855EBC4329FD2FF300F49C9C /* CommonConstatns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4229FD2FF300F49C9C /* CommonConstatns.swift */; };
 		855EBC4629FD540600F49C9C /* SwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4529FD540600F49C9C /* SwitcherView.swift */; };
-		855EBC4B29FD7FE000F49C9C /* SwitcherViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */; };
 		857709F92A03B6B2001C8CF2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */; };
+		857709FC2A03DED7001C8CF2 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857709FB2A03DED7001C8CF2 /* Messages.swift */; };
 		85936E1C29FBF8C5001AE1FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */; };
 		85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */; };
 		85936E2029FBF8C5001AE1FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85936E1F29FBF8C5001AE1FE /* ViewController.swift */; };
@@ -24,20 +20,15 @@
 		85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85936E2429FBF8C5001AE1FE /* Chat_App.xcdatamodeld */; };
 		85936E2829FBF8C7001AE1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2729FBF8C7001AE1FE /* Assets.xcassets */; };
 		85936E2B29FBF8C7001AE1FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2929FBF8C7001AE1FE /* LaunchScreen.storyboard */; };
-		85D1C58129FFFE0D00017CA7 /* UIColor + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C58029FFFE0D00017CA7 /* UIColor + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		855EBC3629FD2F2E00F49C9C /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		855EBC3829FD2F4A00F49C9C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		855EBC3A29FD2F7400F49C9C /* MessageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableView.swift; sourceTree = "<group>"; };
 		855EBC3C29FD2F9700F49C9C /* TextInputComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputComponentView.swift; sourceTree = "<group>"; };
-		855EBC3E29FD2FAE00F49C9C /* TextInputComponentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputComponentViewModel.swift; sourceTree = "<group>"; };
-		855EBC4029FD2FDC00F49C9C /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
 		855EBC4229FD2FF300F49C9C /* CommonConstatns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonConstatns.swift; sourceTree = "<group>"; };
 		855EBC4529FD540600F49C9C /* SwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherView.swift; sourceTree = "<group>"; };
-		855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherViewExtension.swift; sourceTree = "<group>"; };
 		857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		857709FB2A03DED7001C8CF2 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		85936E1829FBF8C5001AE1FE /* Chat App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +38,6 @@
 		85936E2729FBF8C7001AE1FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85936E2A29FBF8C7001AE1FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85936E2C29FBF8C7001AE1FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		85D1C58029FFFE0D00017CA7 /* UIColor + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,14 +51,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		855EBC3129FD2DC500F49C9C /* SeparatorViewComponent */ = {
-			isa = PBXGroup;
-			children = (
-				855EBC3629FD2F2E00F49C9C /* SeparatorView.swift */,
-			);
-			path = SeparatorViewComponent;
-			sourceTree = "<group>";
-		};
 		855EBC3229FD2DE600F49C9C /* ChatComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +62,6 @@
 		855EBC3329FD2E0200F49C9C /* ChatTableView */ = {
 			isa = PBXGroup;
 			children = (
-				855EBC3A29FD2F7400F49C9C /* MessageTableView.swift */,
 				857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */,
 			);
 			path = ChatTableView;
@@ -90,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				855EBC3C29FD2F9700F49C9C /* TextInputComponentView.swift */,
-				855EBC3E29FD2FAE00F49C9C /* TextInputComponentViewModel.swift */,
 			);
 			path = TextInputComponent;
 			sourceTree = "<group>";
@@ -98,7 +78,6 @@
 		855EBC3529FD2E6F00F49C9C /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				855EBC4029FD2FDC00F49C9C /* ImageNames.swift */,
 				855EBC4229FD2FF300F49C9C /* CommonConstatns.swift */,
 			);
 			path = Constants;
@@ -112,13 +91,12 @@
 			path = Switcher;
 			sourceTree = "<group>";
 		};
-		855EBC4929FD7FB800F49C9C /* Extensions */ = {
+		857709FA2A03DEA2001C8CF2 /* MessageManager */ = {
 			isa = PBXGroup;
 			children = (
-				85D1C58029FFFE0D00017CA7 /* UIColor + Extensions.swift */,
-				855EBC4A29FD7FE000F49C9C /* SwitcherViewExtension.swift */,
+				857709FB2A03DED7001C8CF2 /* Messages.swift */,
 			);
-			path = Extensions;
+			path = MessageManager;
 			sourceTree = "<group>";
 		};
 		85936E0F29FBF8C5001AE1FE = {
@@ -140,13 +118,12 @@
 		85936E1A29FBF8C5001AE1FE /* Chat App */ = {
 			isa = PBXGroup;
 			children = (
+				857709FA2A03DEA2001C8CF2 /* MessageManager */,
 				855EBC3529FD2E6F00F49C9C /* Constants */,
 				855EBC3429FD2E1800F49C9C /* TextInputComponent */,
 				855EBC3329FD2E0200F49C9C /* ChatTableView */,
-				855EBC3129FD2DC500F49C9C /* SeparatorViewComponent */,
 				855EBC3229FD2DE600F49C9C /* ChatComponent */,
 				855EBC4429FD53AE00F49C9C /* Switcher */,
-				855EBC4929FD7FB800F49C9C /* Extensions */,
 				85936E1B29FBF8C5001AE1FE /* AppDelegate.swift */,
 				85936E1D29FBF8C5001AE1FE /* SceneDelegate.swift */,
 				85936E1F29FBF8C5001AE1FE /* ViewController.swift */,
@@ -231,20 +208,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				85936E2029FBF8C5001AE1FE /* ViewController.swift in Sources */,
+				857709FC2A03DED7001C8CF2 /* Messages.swift in Sources */,
 				855EBC4629FD540600F49C9C /* SwitcherView.swift in Sources */,
 				855EBC4329FD2FF300F49C9C /* CommonConstatns.swift in Sources */,
 				85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */,
 				855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */,
-				855EBC3F29FD2FAE00F49C9C /* TextInputComponentViewModel.swift in Sources */,
-				855EBC4129FD2FDC00F49C9C /* ImageNames.swift in Sources */,
-				85D1C58129FFFE0D00017CA7 /* UIColor + Extensions.swift in Sources */,
 				857709F92A03B6B2001C8CF2 /* MessageTableViewCell.swift in Sources */,
-				855EBC3729FD2F2E00F49C9C /* SeparatorView.swift in Sources */,
 				85936E1C29FBF8C5001AE1FE /* AppDelegate.swift in Sources */,
 				855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */,
 				85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */,
-				855EBC4B29FD7FE000F49C9C /* SwitcherViewExtension.swift in Sources */,
-				855EBC3B29FD2F7400F49C9C /* MessageTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
