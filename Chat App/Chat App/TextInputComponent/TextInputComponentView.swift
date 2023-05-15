@@ -7,18 +7,15 @@
 
 import UIKit
 
-final class TextInputComponentView: UIView{
+final class TextInputComponentView: UIView {
     
     // MARK: Components
     private let containerView = UIView()
-    
     private let textView = UITextView()
-    
     private let button = UIButton()
+    private var containerViewHeightConstraint: NSLayoutConstraint?
     
-    private var containerViewHeightConstraint: NSLayoutConstraint!
-    
-    // MARK: init
+    // MARK: Init
     init() {
         super.init(frame: .zero)
         setUp()
@@ -28,7 +25,7 @@ final class TextInputComponentView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: setup
+    // MARK: Setup
     private func setUp() {
         setUpContainerView()
         setUpTextView()
@@ -37,11 +34,10 @@ final class TextInputComponentView: UIView{
     }
     
     private func setUpContainerView() {
-        containerView.layer.borderWidth = 1.0
-        containerView.layer.borderColor = Constants.ChatAppColors.containerViewBorderColor.cgColor
-        containerView.layer.cornerRadius = 28
+        containerView.layer.borderWidth = Constants.Button.borderWidth
+        containerView.layer.borderColor = Constants.ContainerView.containerViewBorderColor
+        containerView.layer.cornerRadius = Constants.Button.cornerRadius
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     private func setUpTextView() {
@@ -49,106 +45,101 @@ final class TextInputComponentView: UIView{
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
         textView.isEditable = true
-        textView.textColor = Constants.ChatAppColors.placeholderColor
+        textView.textColor = Constants.TextView.placeholderColor
         textView.delegate = self
         textView.contentOffset = CGPoint(x: 0, y: (textView.contentSize.height - textView.frame.height) / 2)
         textView.textContainerInset = UIEdgeInsets(top: 19, left: 22, bottom: 19, right: 0)
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.adjustsFontForContentSizeCategory = true
+        textView.backgroundColor = .clear
         containerView.addSubview(textView)
     }
     
     private func setUpButton() {
-        button.setImage(UIImage(named:Constants.ImageNames.SendButton ), for: .normal)
+        button.setImage(UIImage(named: Constants.TextView.sendButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(button)
     }
     
-    // MARK: layout constraints
+    // MARK: Layout Constraints
     private func setUpLayoutConstraints() {
         addSubview(containerView)
-        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: Constants.ContainerViewConstraints.height)
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: Constants.ContainerView.height)
+        containerViewHeightConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.ContainerViewConstraints.side),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.ContainerView.side),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.ContainerViewConstraints.side),
-            containerViewHeightConstraint,
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.ContainerView.side),
             
             textView.topAnchor.constraint(equalTo: containerView.topAnchor),
             textView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             textView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: Constants.TextViewConstraints.side),
+            textView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: Constants.TextView.side),
             
-            button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: Constants.ButtonConstraints.bottom),
-            button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: Constants.ButtonConstraints.trailing),
-            button.heightAnchor.constraint(equalToConstant: Constants.ButtonConstraints.height),
-            button.widthAnchor.constraint(equalToConstant: Constants.ButtonConstraints.width),
+            button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: Constants.Button.bottom),
+            button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: Constants.Button.trailing),
+            button.heightAnchor.constraint(equalToConstant: Constants.Button.height),
+            button.widthAnchor.constraint(equalToConstant: Constants.Button.width),
         ])
     }
-}
     
-    extension TextInputComponentView: UITextViewDelegate{
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            if textView.textColor == Constants.ChatAppColors.placeholderColor{
-                textView.text = ""
-                textView.textColor = Constants.ChatAppColors.lightModeTextColor
+    private func updateTextViewHeight() {
+        let maxLines = textView.calculateMaxLines()
+        if maxLines > 4 {
+            guard containerViewHeightConstraint == nil else { return }
+            containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: containerView.frame.height)
+            containerViewHeightConstraint?.isActive = true
+            textView.isScrollEnabled = true
+        } else {
+            textView.isScrollEnabled = false
+            if let heightConstraint = containerViewHeightConstraint {
+                heightConstraint.isActive = false
+                containerView.removeConstraint(heightConstraint)
+                containerView.layoutIfNeeded()
+                textView.layoutIfNeeded()
+                layoutIfNeeded()
             }
+            containerViewHeightConstraint = nil
         }
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            if textView.text.isEmpty {
-                textView.text = Constants.TextView.placeHolder
-                textView.textColor = Constants.ChatAppColors.placeholderColor
-            }
-        }
-        
-        func textViewDidChange(_ textView: UITextView) {
-            guard let font = textView.font else { return }
-            
-            let maxHeight: CGFloat = 114.0
-            let minHeight: CGFloat = 56
-            let maxNumberOfLines = 5
-            let numberOfLinesInText = textView.calculateLineCount()
-            
-            let size = CGSize(width: textView.frame.width - 24, height: textView.contentSize.height)
-            let estimatedSize = textView.sizeThatFits(size)
-            let numLines = Int(ceil(textView.contentSize.height / font.lineHeight))
-            let newHeight = max(minHeight, min(estimatedSize.height, CGFloat(numLines) * font.lineHeight, maxHeight))
-            
-            if numberOfLinesInText > maxNumberOfLines {
-                textView.isScrollEnabled = true
-                containerViewHeightConstraint.constant = maxHeight
-            } else {
-                textView.isScrollEnabled = false
-                containerViewHeightConstraint.constant = newHeight
-            }
-            
-            textView.constraints.forEach { (constraint) in
-                if constraint.firstAttribute == .height {
-                    constraint.constant = newHeight
-                }
-            }
-            
-            containerView.layoutIfNeeded()
-        }
-}
-extension UITextView {
-    func calculateLineCount() -> Int {
-        let textLayoutManager = self.layoutManager
-        let glyphCount = textLayoutManager.numberOfGlyphs
-        var lineRange: NSRange = NSRange(location: 0, length: 1)
-        var currentIndex = 0
-        var numberOfLines = 0
-
-        while currentIndex < glyphCount {
-            textLayoutManager.lineFragmentRect(forGlyphAt: currentIndex, effectiveRange: &lineRange)
-            currentIndex = NSMaxRange(lineRange)
-            numberOfLines += 1
-        }
-
-        return numberOfLines
     }
 }
+
+extension TextInputComponentView: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == Constants.TextView.placeholderColor {
+            textView.text = ""
+            textView.textColor = Constants.TextView.lightModeTextColor
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = Constants.TextView.placeHolder
+            textView.textColor = Constants.TextView.placeholderColor
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        updateTextViewHeight()
+    }
+}
+
+extension UITextView {
+    
+    func calculateMaxLines() -> Int {
+        let maxSize = CGSize(width: self.frame.width, height: CGFloat(Float.infinity))
+        let font = self.font ?? .systemFont(ofSize: 16)
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height / charSize))
+        return linesRoundedUp
+    }
+}
+
+
 
 

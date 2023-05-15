@@ -6,16 +6,17 @@
 //
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+final class MessageTableViewCell: UITableViewCell {
     
-    private lazy var messageLabel: UILabel = {
+    // MARK: Components
+    
+    private let messageLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.numberOfLines = .zero
         return label
     }()
     
-    private lazy var dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12)
@@ -31,38 +32,34 @@ class MessageTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Setup
     private func setUp() {
         setUpMessageLabel()
         setUpDateLabel()
         setUpLayoutConstraints()
+        backgroundColor = .clear
     }
     
     private func setUpMessageLabel() {
         contentView.addSubview(messageLabel)
-        messageLabel.numberOfLines = 0
+        messageLabel.numberOfLines = .zero
         messageLabel.font = UIFont.systemFont(ofSize: 16)
-        messageLabel.textColor = .black
+        messageLabel.textColor = .gray
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setUpDateLabel() {
         contentView.addSubview(dateLabel)
-        dateLabel.font = UIFont.systemFont(ofSize: 12)
+        dateLabel.font = .systemFont(ofSize: 12)
         dateLabel.textColor = .gray
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func configure(with message: Message) {
         messageLabel.text = message.text
-        dateLabel.text = formatDate(message.date)
+        dateLabel.text = message.date.formatDate()
     }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
-    }
-    
+
     private func setUpLayoutConstraints() {
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.CellLabelConstraints.top),
@@ -76,5 +73,4 @@ class MessageTableViewCell: UITableViewCell {
         ])
     }
 }
-
 
