@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     // MARK: Components
     private let topChatView = ChatView()
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
 }
 // MARK: Switcher Delegate
 extension ViewController: DayLightSwitchDelegate {
-    func didToggleDayLightSwitch(with state: Button) {
+    func didToggleDayLightSwitch(with state: BackgroundMode) {
         switch state {
         case .light:
             [topChatView, bottomChatView, view].forEach { $0.backgroundColor = Constants.ViewColor.darkModeColor }
@@ -71,6 +71,3 @@ extension ViewController: DayLightSwitchDelegate {
         }
     }
 }
-
-
-

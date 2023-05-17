@@ -48,8 +48,8 @@ final class TextInputComponentView: UIView {
         textView.textColor = Constants.TextView.placeholderColor
         textView.delegate = self
         textView.contentOffset = CGPoint(x: 0, y: (textView.contentSize.height - textView.frame.height) / 2)
-        textView.textContainerInset = UIEdgeInsets(top: 19, left: 22, bottom: 19, right: 0)
-        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.textContainerInset = Constants.TextViewInsets.textInsets
+        textView.font = UIFont.systemFont(ofSize: TextInputComponentView.Constants.TextView.fontSize)
         textView.adjustsFontForContentSizeCategory = true
         textView.backgroundColor = .clear
         containerView.addSubview(textView)
@@ -87,7 +87,7 @@ final class TextInputComponentView: UIView {
     
     private func updateTextViewHeight() {
         let maxLines = textView.calculateMaxLines()
-        if maxLines > 4 {
+        if maxLines > 5 {
             guard containerViewHeightConstraint == nil else { return }
             containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: containerView.frame.height)
             containerViewHeightConstraint?.isActive = true
@@ -103,6 +103,9 @@ final class TextInputComponentView: UIView {
             }
             containerViewHeightConstraint = nil
         }
+    }
+    
+    private func setUpBubbles() {
     }
 }
 
@@ -131,7 +134,7 @@ extension UITextView {
     
     func calculateMaxLines() -> Int {
         let maxSize = CGSize(width: self.frame.width, height: CGFloat(Float.infinity))
-        let font = self.font ?? .systemFont(ofSize: 16)
+        let font = self.font ?? .systemFont(ofSize: TextInputComponentView.Constants.TextView.fontSize)
         let charSize = font.lineHeight
         let text = (self.text ?? "") as NSString
         let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
@@ -139,7 +142,3 @@ extension UITextView {
         return linesRoundedUp
     }
 }
-
-
-
-

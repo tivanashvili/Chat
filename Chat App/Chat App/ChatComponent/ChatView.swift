@@ -17,9 +17,9 @@ final class ChatView: UIView {
         Message(text: "I'm doing well, thanks!", date: Date())
     ]
     
-    
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: Constants.CellConstants.cellIdentifier)
         tableView.backgroundColor = .clear
@@ -44,11 +44,11 @@ final class ChatView: UIView {
         setUpLayoutConstraints()
     }
     
-    private func setUpChatView(){
+    private func setUpChatView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setUpTextInputComponentView(){
+    private func setUpTextInputComponentView() {
         textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textInputComponentView)
     }
@@ -59,7 +59,7 @@ final class ChatView: UIView {
     }
     
     // MARK: Layout Constraints
-    private func setUpLayoutConstraints(){
+    private func setUpLayoutConstraints() {
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: topAnchor),
             leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -80,7 +80,7 @@ final class ChatView: UIView {
 }
 
 // MARK: - UITableViewDataSource
-extension ChatView: UITableViewDataSource{
+extension ChatView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         messages.count
@@ -92,10 +92,7 @@ extension ChatView: UITableViewDataSource{
         }
         let message = messages[indexPath.row]
         cell.configure(with: message)
+        
         return cell
     }
 }
-
-
-
-

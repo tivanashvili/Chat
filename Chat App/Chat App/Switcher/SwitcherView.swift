@@ -7,13 +7,13 @@
 
 import UIKit
 
-enum Button {
+enum BackgroundMode {
     case light
     case dark
 }
 
 protocol DayLightSwitchDelegate: AnyObject {
-    func didToggleDayLightSwitch(with state: Button)
+    func didToggleDayLightSwitch(with state: BackgroundMode)
 }
 
 final class DayLightSwitch: UIButton {
@@ -47,8 +47,3 @@ final class DayLightSwitch: UIButton {
         delegate?.didToggleDayLightSwitch(with: self.isSelected ? .light : .dark)
     }
 }
-
-
-
-
-

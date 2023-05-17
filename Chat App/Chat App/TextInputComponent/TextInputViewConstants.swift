@@ -18,11 +18,11 @@ extension TextInputComponentView {
             static let cornerRadius: CGFloat = 28
         }
         enum TextView {
-            static let maxLines = 5
             static let height: CGFloat = 114
             static let side: CGFloat = -5
             static let placeHolder = "დაწერე შეტყობინება..."
             static let sendButton = "sendButtonImage"
+            static let fontSize: CGFloat = 16
             static let lightModeTextColor = UIColor(
                 red: 0.098,
                 green: 0.098,
@@ -42,6 +42,9 @@ extension TextInputComponentView {
                 green: 0.376,
                 blue: 1,
                 alpha: 1).cgColor
+        }
+        enum TextViewInsets {
+            static let textInsets = UIEdgeInsets(top: 19, left: 22, bottom: 19, right: 0)
         }
     }
 }
