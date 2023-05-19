@@ -24,6 +24,7 @@
 		85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85936E2429FBF8C5001AE1FE /* Chat_App.xcdatamodeld */; };
 		85936E2829FBF8C7001AE1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2729FBF8C7001AE1FE /* Assets.xcassets */; };
 		85936E2B29FBF8C7001AE1FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2929FBF8C7001AE1FE /* LaunchScreen.storyboard */; };
+		85C26AC92A1630EF001716E4 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		85936E2729FBF8C7001AE1FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85936E2A29FBF8C7001AE1FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85936E2C29FBF8C7001AE1FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				8565033F2A1246FA00DB56D5 /* TableViewCell+Extensions.swift */,
+				85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				856503402A1246FA00DB56D5 /* TableViewCell+Extensions.swift in Sources */,
 				855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */,
 				85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */,
+				85C26AC92A1630EF001716E4 /* UITextView+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,6 +22,7 @@ extension TextInputComponentView {
             static let side: CGFloat = -5
             static let placeHolder = "დაწერე შეტყობინება..."
             static let sendButton = "sendButtonImage"
+            static let maxLines = 5
             static let fontSize: CGFloat = 16
             static let lightModeTextColor = UIColor(
                 red: 0.098,
@@ -35,7 +36,7 @@ extension TextInputComponentView {
                 alpha: 1)
         }
         enum ContainerView {
-            static let height: CGFloat = 56
+            static let height: CGFloat = 126
             static let side: CGFloat = 16
             static let containerViewBorderColor = UIColor(
                 red: 0.624,

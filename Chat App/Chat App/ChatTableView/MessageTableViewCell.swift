@@ -13,6 +13,7 @@ final class MessageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -20,30 +21,34 @@ final class MessageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .gray
         label.font = Constants.FontSize.dateLabelFontSize
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let chatBubble: UIView = {
         let bubble = UIView()
-        bubble.layer.cornerRadius = 25
+        bubble.layer.cornerRadius = Constants.ChatBubbleConstraints.chatBubbleCornerRadius
         bubble.layer.masksToBounds = true
         bubble.backgroundColor = Constants.ChatBubbleColors.lightModeBubbleColor
+        bubble.translatesAutoresizingMaskIntoConstraints = false
         return bubble
     }()
     
     private let middleBubble: UIView = {
         let bubble = UIView()
-        bubble.layer.cornerRadius = 12
+        bubble.layer.cornerRadius = Constants.ChatBubbleConstraints.middleBubbleCornerRadius
         bubble.layer.masksToBounds = true
         bubble.backgroundColor = Constants.ChatBubbleColors.lightModeBubbleColor
+        bubble.translatesAutoresizingMaskIntoConstraints = false
         return bubble
     }()
     
     private let smallestBubble: UIView = {
         let bubble = UIView()
-        bubble.layer.cornerRadius = 10
+        bubble.layer.cornerRadius = Constants.ChatBubbleConstraints.smallestBubbleCornerRadius
         bubble.layer.masksToBounds = true
         bubble.backgroundColor = Constants.ChatBubbleColors.lightModeBubbleColor
+        bubble.translatesAutoresizingMaskIntoConstraints = false
         return bubble
     }()
     
@@ -59,59 +64,69 @@ final class MessageTableViewCell: UITableViewCell {
     // MARK: Setup
     private func setUp() {
         backgroundColor = .clear
-        setUpChatBubbles()
-        setUpMessageLabel()
-        setUpDateLabel()
+        selectionStyle = .none
         setUpLayoutConstraints()
     }
     
-    private func setUpChatBubbles() {
-        contentView.addSubview(chatBubble)
-        contentView.addSubview(middleBubble)
-        contentView.addSubview(smallestBubble)
-        chatBubble.translatesAutoresizingMaskIntoConstraints = false
-        middleBubble.translatesAutoresizingMaskIntoConstraints = false
-        smallestBubble.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setUpMessageLabel() {
-        chatBubble.addSubview(messageLabel)
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setUpDateLabel() {
-        contentView.addSubview(dateLabel)
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    func configure(with message: Message) {
-        messageLabel.text = message.text
-        dateLabel.text = message.date.formatDate()
-    }
-    
     private func setUpLayoutConstraints() {
+        setUpChatBubble()
+        setUpSmallestBubble()
+        setUpMiddleBubble()
+        setUpMessageLabel()
+        setUpDateLabel()
+    }
+    
+    private func setUpChatBubble() {
+        contentView.addSubview(chatBubble)
+        NSLayoutConstraint.activate([
+            chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor),
+            chatBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleLeading)
+        ])
+    }
+    
+    private func setUpMiddleBubble() {
+        contentView.addSubview(middleBubble)
+        NSLayoutConstraint.activate([
+            middleBubble.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleLeading),
+            middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleBottom),
+            middleBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleWidth),
+            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight)
+        ])
+    }
+    
+    private func setUpSmallestBubble() {
+        contentView.addSubview(smallestBubble)
         NSLayoutConstraint.activate([
             smallestBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleLeading),
             smallestBubble.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleBottom),
             smallestBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleWidth),
-            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight),
-
-            middleBubble.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleLeading),
-            middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleBottom),
-            middleBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleWidth),
-            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight),
-            
-            chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor),
-            chatBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleLeading),
-
+            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight)
+        ])
+    }
+    
+    private func setUpMessageLabel() {
+        chatBubble.addSubview(messageLabel)
+        NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: chatBubble.topAnchor, constant: Constants.CellLabelConstraints.top),
             messageLabel.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.CellLabelConstraints.sides),
             messageLabel.trailingAnchor.constraint(equalTo: chatBubble.trailingAnchor, constant: -Constants.CellLabelConstraints.sides),
-            messageLabel.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.CellLabelConstraints.bottom),
-            
+            messageLabel.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.CellLabelConstraints.bottom)
+        ])
+    }
+    
+    private func setUpDateLabel() {
+        contentView.addSubview(dateLabel)
+        NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.DateLabelConstraints.top),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.DateLabelConstraints.leading),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.DateLabelConstraints.bottom)
         ])
     }
+    
+    func configure(with message: Message) {
+        messageLabel.text = message.text
+        dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
+    }
 }
+
+

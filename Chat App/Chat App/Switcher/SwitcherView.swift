@@ -13,17 +13,15 @@ enum BackgroundMode {
 }
 
 protocol DayLightSwitchDelegate: AnyObject {
-    func didToggleDayLightSwitch(with state: BackgroundMode)
+    func didToggleSwitch(with state: BackgroundMode)
 }
 
 final class DayLightSwitch: UIButton {
     
     // MARK: Components
-    
     weak var delegate: DayLightSwitchDelegate?
     
     // MARK: Init
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUp()
@@ -34,7 +32,6 @@ final class DayLightSwitch: UIButton {
     }
     
     // MARK: Setup
-    
     private func setUp() {
         setImage(Constants.lightMode, for: .normal)
         setImage(Constants.darkMode, for: .selected)
@@ -43,7 +40,7 @@ final class DayLightSwitch: UIButton {
     }
     
     @objc private func buttonTapped() {
-        self.isSelected.toggle()
-        delegate?.didToggleDayLightSwitch(with: self.isSelected ? .light : .dark)
+        isSelected.toggle()
+        delegate?.didToggleSwitch(with: isSelected ? .dark : .light)
     }
 }

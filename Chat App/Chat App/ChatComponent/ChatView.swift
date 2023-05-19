@@ -11,20 +11,23 @@ final class ChatView: UIView {
     
     // MARK: Components
     private let textInputComponentView = TextInputComponentView()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: Constants.CellConstants.cellIdentifier)
+        tableView.dataSource = self
+        tableView.backgroundColor = .clear
+        return tableView
+    }()
+    
+    // MARK: Properties
     private let messages = [
         Message(text: "Hello", date: Date()),
         Message(text: "How are you?", date: Date()),
         Message(text: "I'm doing well, thanks!", date: Date())
     ]
-    
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: Constants.CellConstants.cellIdentifier)
-        tableView.backgroundColor = .clear
-        return tableView
-    }()
     
     // MARK: Init
     override init(frame: CGRect) {
@@ -38,39 +41,37 @@ final class ChatView: UIView {
     
     // MARK: Setup
     private func setUp(){
-        setUpChatView()
-        setUpTableView()
+        addSubview(textInputComponentView)
+        addSubview(tableView)
         setUpTextInputComponentView()
-        setUpLayoutConstraints()
+        setUpTableView()
+        setUpChatView()
     }
     
     private func setUpChatView() {
         translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setUpTextInputComponentView() {
-        textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(textInputComponentView)
-    }
-    
-    private func setUpTableView() {
-        tableView.dataSource = self
-        addSubview(tableView)
-    }
-    
-    // MARK: Layout Constraints
-    private func setUpLayoutConstraints() {
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: topAnchor),
             leadingAnchor.constraint(equalTo: leadingAnchor),
             bottomAnchor.constraint(equalTo: bottomAnchor),
-            trailingAnchor.constraint(equalTo: trailingAnchor),
-            
+            trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    private func setUpTableView() {
+        addSubview(tableView)
+        NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.TableViewConstraints.top),
             tableView.bottomAnchor.constraint(equalTo: textInputComponentView.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.TableViewConstraints.top),
-            
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.TableViewConstraints.leading),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.TableViewConstraints.trailing)
+        ])
+    }
+    
+    private func setUpTextInputComponentView() {
+        addSubview(textInputComponentView)
+        textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
             textInputComponentView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             textInputComponentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             textInputComponentView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -87,12 +88,9 @@ extension ChatView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as? MessageTableViewCell else {
-            fatalError("Unable to dequeue MessageTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
         let message = messages[indexPath.row]
         cell.configure(with: message)
-        
         return cell
     }
 }

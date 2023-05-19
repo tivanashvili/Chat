@@ -14,6 +14,8 @@ extension ChatView {
         }
         enum TableViewConstraints{
             static let top: CGFloat = 5
+            static let trailing: CGFloat = -5
+            static let leading: CGFloat = 5
         }
     }
 }

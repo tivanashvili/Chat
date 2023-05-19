@@ -14,10 +14,15 @@ final class ViewController: UIViewController {
     private let separatorView = UIView()
     private let bottomChatView = ChatView()
     private let switchButton = DayLightSwitch()
+    private var statusBarStyle: UIStatusBarStyle = .darkContent
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return statusBarStyle
     }
     
     func setUp() {
@@ -62,12 +67,17 @@ final class ViewController: UIViewController {
 }
 // MARK: Switcher Delegate
 extension ViewController: DayLightSwitchDelegate {
-    func didToggleDayLightSwitch(with state: BackgroundMode) {
+    func didToggleSwitch(with state: BackgroundMode) {
         switch state {
         case .light:
-            [topChatView, bottomChatView, view].forEach { $0.backgroundColor = Constants.ViewColor.darkModeColor }
+            updateBackground(with: .white, statusBarStyle: .darkContent)
         case .dark:
-            [topChatView, bottomChatView, view].forEach { $0.backgroundColor = .white }
+            updateBackground(with: Constants.ViewColor.darkModeColor, statusBarStyle: .lightContent)
         }
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    func updateBackground(with color: UIColor, statusBarStyle: UIStatusBarStyle) {
+        [topChatView, bottomChatView, view].forEach { $0.backgroundColor = color }
+        self.statusBarStyle = statusBarStyle
     }
 }

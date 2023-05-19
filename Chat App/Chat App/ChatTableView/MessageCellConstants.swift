@@ -19,18 +19,24 @@ extension MessageTableViewCell {
             static let leading: CGFloat = 50
             static let bottom: CGFloat = -16
         }
+        enum DateConfigure {
+            static let date = "MMM MM, HH:mm"
+        }
         enum ChatBubbleConstraints {
             static let smallestBubbleBottom: CGFloat = -20
             static let smallestBubbleLeading: CGFloat = 20
             static let smallestBubbleHeight: CGFloat = 18
             static let smallestBubbleWidth: CGFloat = 18
+            static let smallestBubbleCornerRadius: CGFloat = 10
             
             static let middleBubbleBottom: CGFloat = 2
             static let middleBubbleLeading: CGFloat = -4
             static let middleBubbleHeight: CGFloat = 24
             static let middleBubbleWidth: CGFloat = 24
+            static let middleBubbleCornerRadius: CGFloat = 12
             
             static let chatBubbleLeading: CGFloat = 40
+            static let chatBubbleCornerRadius: CGFloat = 25
         }
         enum FontSize {
             static let dateLabelFontSize = UIFont.systemFont(ofSize: 12)
