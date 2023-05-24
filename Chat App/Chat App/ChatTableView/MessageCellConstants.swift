@@ -29,13 +29,13 @@ extension MessageTableViewCell {
             static let smallestBubbleHeight: CGFloat = 18
             static let smallestBubbleWidth: CGFloat = 18
             static let smallestBubbleCornerRadius: CGFloat = 10
-
+            
             static let middleBubbleBottom: CGFloat = 2
             static let middleBubbleLeading: CGFloat = -4
             static let middleBubbleHeight: CGFloat = 24
             static let middleBubbleWidth: CGFloat = 24
             static let middleBubbleCornerRadius: CGFloat = 12
-
+            
             static let chatBubbleLeading: CGFloat = 40
             static let chatBubbleTrailing: CGFloat = -16
             static let chatBubbleCornerRadius: CGFloat = 25

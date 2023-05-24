@@ -99,10 +99,10 @@ final class TextInputComponentView: UIView {
     }
     
     private func addTapGestureRecognizer() {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            tapGesture.cancelsTouchesInView = false
-            self.addGestureRecognizer(tapGesture)
-        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        self.addGestureRecognizer(tapGesture)
+    }
     
     @objc private func dismissKeyboard() {
         textView.resignFirstResponder()
