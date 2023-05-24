@@ -22,13 +22,6 @@ final class ChatView: UIView {
         return tableView
     }()
     
-    // MARK: Properties
-    private let messages = [
-        Message(text: "Hello", date: Date()),
-        Message(text: "How are you?", date: Date()),
-        Message(text: "I'm doing well, thanks!", date: Date())
-    ]
-    
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -84,13 +77,23 @@ final class ChatView: UIView {
 extension ChatView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        messages.count
+        4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
-        let message = messages[indexPath.row]
-        cell.configure(with: message)
+        switch indexPath.row {
+        case 0:
+            cell.configure(with: "Hello!", indexPath: indexPath)
+        case 1:
+            cell.configure(with: "How Are you?", indexPath: indexPath)
+        case 2:
+            cell.configure(with: "FineHi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?", indexPath: indexPath)
+        case 3:
+            cell.configure(with: "Hi, how are you?", indexPath: indexPath)
+        default:
+            break
+        }
         return cell
     }
 }
