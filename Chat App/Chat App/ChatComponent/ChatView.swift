@@ -22,6 +22,15 @@ final class ChatView: UIView {
         return tableView
     }()
     
+    // MARK: Properties
+    let messages: [Messages] = [
+        Messages(userID: .left, message: "Hello", date: Date()),
+        Messages(userID: .right, message: "How are you?", date: Date()),
+        Messages(userID: .left, message: "Thanks", date: Date()),
+        Messages(userID: .right, message: "Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
+        Messages(userID: .left, message: "Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
+    ]
+    
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -77,23 +86,23 @@ final class ChatView: UIView {
 extension ChatView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
-        switch indexPath.row {
-        case 0:
-            cell.configure(with: "Hello!", indexPath: indexPath)
-        case 1:
-            cell.configure(with: "How Are you?", indexPath: indexPath)
-        case 2:
-            cell.configure(with: "FineHi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?Hi, how are you?", indexPath: indexPath)
-        case 3:
-            cell.configure(with: "Hi, how are you?", indexPath: indexPath)
-        default:
-            break
+        let message = messages[indexPath.row]
+
+        switch message.userID {
+        case .left:
+            cell.setUpLayoutConstraints()
+        case .right:
+            cell.setUpSenderBubbleLayoutConstraints()
+            cell.setUpSenderBubbleColor()
         }
+
+        cell.configure(with: message)
+
         return cell
     }
 }

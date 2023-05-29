@@ -14,7 +14,6 @@
 		856503392A12214C00DB56D5 /* TextInputViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856503382A12214C00DB56D5 /* TextInputViewConstants.swift */; };
 		8565033B2A1241BE00DB56D5 /* ChatViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8565033A2A1241BE00DB56D5 /* ChatViewConstants.swift */; };
 		8565033D2A12431600DB56D5 /* MessageCellConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8565033C2A12431600DB56D5 /* MessageCellConstants.swift */; };
-		856503402A1246FA00DB56D5 /* Date+Extensions in Sources */ = {isa = PBXBuildFile; fileRef = 8565033F2A1246FA00DB56D5 /* Date+Extensions */; };
 		857709F92A03B6B2001C8CF2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */; };
 		857709FC2A03DED7001C8CF2 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857709FB2A03DED7001C8CF2 /* Messages.swift */; };
 		857709FE2A0BC4B3001C8CF2 /* SwitcherViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857709FD2A0BC4B3001C8CF2 /* SwitcherViewConstants.swift */; };
@@ -24,6 +23,7 @@
 		85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85936E2429FBF8C5001AE1FE /* Chat_App.xcdatamodeld */; };
 		85936E2829FBF8C7001AE1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2729FBF8C7001AE1FE /* Assets.xcassets */; };
 		85936E2B29FBF8C7001AE1FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2929FBF8C7001AE1FE /* LaunchScreen.storyboard */; };
+		85B7E7DB2A1E2C3300A04C1E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7DA2A1E2C3300A04C1E /* Date+Extension.swift */; };
 		85C26AC92A1630EF001716E4 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,6 @@
 		856503382A12214C00DB56D5 /* TextInputViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewConstants.swift; sourceTree = "<group>"; };
 		8565033A2A1241BE00DB56D5 /* ChatViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewConstants.swift; sourceTree = "<group>"; };
 		8565033C2A12431600DB56D5 /* MessageCellConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConstants.swift; sourceTree = "<group>"; };
-		8565033F2A1246FA00DB56D5 /* Date+Extensions */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Date+Extensions"; sourceTree = "<group>"; };
 		857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		857709FB2A03DED7001C8CF2 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		857709FD2A0BC4B3001C8CF2 /* SwitcherViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherViewConstants.swift; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		85936E2729FBF8C7001AE1FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85936E2A29FBF8C7001AE1FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85936E2C29FBF8C7001AE1FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85B7E7DA2A1E2C3300A04C1E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,8 +108,8 @@
 		8565033E2A1246C400DB56D5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8565033F2A1246FA00DB56D5 /* Date+Extensions */,
 				85C26AC82A1630EF001716E4 /* UITextView+Extensions.swift */,
+				85B7E7DA2A1E2C3300A04C1E /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,10 +238,10 @@
 				85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */,
 				855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */,
 				857709F92A03B6B2001C8CF2 /* MessageTableViewCell.swift in Sources */,
+				85B7E7DB2A1E2C3300A04C1E /* Date+Extension.swift in Sources */,
 				8565033B2A1241BE00DB56D5 /* ChatViewConstants.swift in Sources */,
 				856503392A12214C00DB56D5 /* TextInputViewConstants.swift in Sources */,
 				85936E1C29FBF8C5001AE1FE /* AppDelegate.swift in Sources */,
-				856503402A1246FA00DB56D5 /* Date+Extensions in Sources */,
 				855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */,
 				85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */,
 				85C26AC92A1630EF001716E4 /* UITextView+Extensions.swift in Sources */,

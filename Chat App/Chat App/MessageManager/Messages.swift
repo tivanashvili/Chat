@@ -7,7 +7,13 @@
 
 import UIKit
 
-struct Message {
-    let text: String
+enum BubblePosition {
+    case left
+    case right
+}
+
+struct Messages {
+    let userID: BubblePosition
+    let message: String
     let date: Date
 }

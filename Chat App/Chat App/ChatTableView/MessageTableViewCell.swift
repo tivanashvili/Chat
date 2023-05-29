@@ -1,3 +1,10 @@
+// MARK: Properties
+//    private let messages = [
+//        Message(text: "Hello", date: Date()),
+//        Message(text: "How are you?", date: Date()),
+//        Message(text: "I'm doing well, thanks!", date: Date())
+//    ]
+
 //
 //  MessageTableViewCell.swift
 //  Chat App
@@ -70,7 +77,7 @@ final class MessageTableViewCell: UITableViewCell {
         setUpMessageLabel()
     }
     
-    private func setUpLayoutConstraints() {
+    func setUpLayoutConstraints() {
         setUpChatBubble()
         setUpSmallestBubble()
         setUpMiddleBubble()
@@ -128,7 +135,7 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    private func setUpSenderBubbleLayoutConstraints() {
+    func setUpSenderBubbleLayoutConstraints() {
         setUpSenderSmallBubbleConstraints()
         setUpSenderMiddleBubbleConstraints()
         setUpSenderChatBubbleConstraints()
@@ -164,7 +171,8 @@ final class MessageTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.SenderChatBubbleConstraints.top),
             chatBubble.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.SenderChatBubbleConstraints.trailing),
-            chatBubble.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: Constants.SenderChatBubbleConstraints.bottom)
+            chatBubble.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: Constants.SenderChatBubbleConstraints.bottom),
+            chatBubble.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: -Constants.ChatBubbleConstraints.chatBubbleTrailing)
         ])
     }
     
@@ -186,21 +194,8 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with message: String, indexPath: IndexPath) {
-        messageLabel.text = message
-        
-        let currentDate = Date()
-        let formattedDate = currentDate.formatDate(dateFormat: Constants.DateConfigure.date)
-        dateLabel.text = formattedDate
-        
-        switch indexPath.row {
-        case 0, 2:
-            setUpLayoutConstraints()
-        case 1, 3:
-            setUpSenderBubbleLayoutConstraints()
-            setUpSenderBubbleColor()
-        default:
-            break
-        }
+    func configure(with message: Messages) {
+        messageLabel.text = message.message
+        dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
     }
 }

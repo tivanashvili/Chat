@@ -1,8 +1,8 @@
 //
-//  Date+Extensions.swift
+//  Date+Extension.swift
 //  Chat App
 //
-//  Created by tornike on 15.05.23.
+//  Created by tornike on 24.05.23.
 //
 
 import Foundation
@@ -14,4 +14,3 @@ extension Date {
         return formatter.string(from: self)
     }
 }
-
