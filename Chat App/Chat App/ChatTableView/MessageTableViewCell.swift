@@ -194,7 +194,7 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with message: Messages) {
+    func configure(with message: Message) {
         messageLabel.text = message.message
         dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
     }
