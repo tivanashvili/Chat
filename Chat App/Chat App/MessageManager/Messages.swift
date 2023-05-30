@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum BubblePosition {
+    case left
+    case right
+}
 struct ReceivedData {
     let loggedInUserID: Int
     let messages: [Message]

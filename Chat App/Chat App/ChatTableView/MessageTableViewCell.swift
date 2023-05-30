@@ -194,8 +194,15 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with message: Message) {
+    func configure(with message: Message, bubblePosition: BubblePosition) {
         messageLabel.text = message.message
         dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
+        
+        if bubblePosition == BubblePosition.left {
+            setUpLayoutConstraints()
+        } else {
+            setUpSenderBubbleLayoutConstraints()
+            setUpSenderBubbleColor()
+        }
     }
 }

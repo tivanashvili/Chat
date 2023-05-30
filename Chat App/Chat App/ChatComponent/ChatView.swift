@@ -93,16 +93,7 @@ extension ChatView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
         
         let message = recievedData.messages[indexPath.row]
-
-        if message.userID == recievedData.loggedInUserID{
-            cell.setUpLayoutConstraints()
-        }
-        else {
-            cell.setUpSenderBubbleLayoutConstraints()
-            cell.setUpSenderBubbleColor()
-        }
-
-        cell.configure(with: message)
+        cell.configure(with: message, bubblePosition: message.userID == recievedData.loggedInUserID ? .left : .right)
 
         return cell
     }
