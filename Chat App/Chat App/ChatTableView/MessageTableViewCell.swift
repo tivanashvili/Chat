@@ -1,10 +1,3 @@
-// MARK: Properties
-//    private let messages = [
-//        Message(text: "Hello", date: Date()),
-//        Message(text: "How are you?", date: Date()),
-//        Message(text: "I'm doing well, thanks!", date: Date())
-//    ]
-
 //
 //  MessageTableViewCell.swift
 //  Chat App
@@ -77,10 +70,10 @@ final class MessageTableViewCell: UITableViewCell {
         setUpMessageLabel()
     }
     
-    func setUpLayoutConstraints() {
-        setUpChatBubble()
-        setUpSmallestBubble()
-        setUpMiddleBubble()
+    private func setUpRecieverBubbleConstraints() {
+        setUpRecieverChatBubble()
+        setUpRecieverSmallestBubble()
+        setUpRecieverMiddleBubble()
         setUpMessageLabel()
         setUpDateLabel()
     }
@@ -91,7 +84,8 @@ final class MessageTableViewCell: UITableViewCell {
         contentView.addSubview(smallestBubble)
         contentView.addSubview(dateLabel)
     }
-    private func setUpChatBubble() {
+    
+    private func setUpRecieverChatBubble() {
         NSLayoutConstraint.activate([
             chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor),
             chatBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleLeading),
@@ -99,7 +93,7 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    private func setUpMiddleBubble() {
+    private func setUpRecieverMiddleBubble() {
         NSLayoutConstraint.activate([
             middleBubble.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleLeading),
             middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleBottom),
@@ -108,7 +102,7 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    private func setUpSmallestBubble() {
+    private func setUpRecieverSmallestBubble() {
         NSLayoutConstraint.activate([
             smallestBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleLeading),
             smallestBubble.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleBottom),
@@ -135,7 +129,7 @@ final class MessageTableViewCell: UITableViewCell {
         ])
     }
     
-    func setUpSenderBubbleLayoutConstraints() {
+    private func setUpSenderBubbleConstraints() {
         setUpSenderSmallBubbleConstraints()
         setUpSenderMiddleBubbleConstraints()
         setUpSenderChatBubbleConstraints()
@@ -143,7 +137,7 @@ final class MessageTableViewCell: UITableViewCell {
         setUpRightDateLabelConstraints()
     }
     
-    func setUpSenderBubbleColor() {
+    private func setUpSenderBubbleColor() {
         chatBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
         middleBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
         smallestBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
@@ -198,10 +192,11 @@ final class MessageTableViewCell: UITableViewCell {
         messageLabel.text = message.message
         dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
         
-        if bubblePosition == BubblePosition.left {
-            setUpLayoutConstraints()
-        } else {
-            setUpSenderBubbleLayoutConstraints()
+        switch bubblePosition {
+        case .left:
+            setUpRecieverBubbleConstraints()
+        case .right:
+            setUpSenderBubbleConstraints()
             setUpSenderBubbleColor()
         }
     }

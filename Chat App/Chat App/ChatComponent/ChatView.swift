@@ -47,17 +47,6 @@ final class ChatView: UIView {
         addSubview(tableView)
         setUpTextInputComponentView()
         setUpTableView()
-        setUpChatView()
-    }
-    
-    private func setUpChatView() {
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: topAnchor),
-            leadingAnchor.constraint(equalTo: leadingAnchor),
-            bottomAnchor.constraint(equalTo: bottomAnchor),
-            trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
     }
     
     private func setUpTableView() {
