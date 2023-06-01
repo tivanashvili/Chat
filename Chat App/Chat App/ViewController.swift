@@ -19,6 +19,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        addTapGestureRecognizer()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -33,6 +34,16 @@ final class ViewController: UIViewController {
         
         setUpConstraintsForSubviews()
         switchButton.delegate = self
+    }
+    
+    private func addTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     // MARK: layout constraints

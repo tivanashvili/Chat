@@ -57,7 +57,6 @@ final class TextInputComponentView: UIView {
     // MARK: Setup
     private func setUp() {
         setUpLayoutConstraints()
-        addTapGestureRecognizer()
     }
     
     // MARK: Layout Constraints
@@ -96,16 +95,6 @@ final class TextInputComponentView: UIView {
             textView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.TextView.side),
         ])
-    }
-    
-    private func addTapGestureRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        self.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func dismissKeyboard() {
-        textView.resignFirstResponder()
     }
     
     private func updateTextViewHeight() {

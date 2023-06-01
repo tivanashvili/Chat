@@ -27,8 +27,8 @@ final class ChatView: UIView {
         Message(userID: 2, message: "Hello", date: Date()),
         Message(userID: 1, message: "How are you?", date: Date()),
         Message(userID: 2, message: "Thanks", date: Date()),
-        Message(userID: 1, message: "Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
-        Message(userID: 1, message: "Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
+        Message(userID: 1, message: "Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
+        Message(userID: 2, message: "Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
     ])
     
     // MARK: Init

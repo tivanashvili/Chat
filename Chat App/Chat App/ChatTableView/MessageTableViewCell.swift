@@ -66,8 +66,29 @@ final class MessageTableViewCell: UITableViewCell {
     private func setUp() {
         selectionStyle = .none
         backgroundColor = .clear
-        setUpBubbles()
+        addSubViews()
         setUpMessageLabel()
+    }
+    
+    private func addSubViews() {
+        contentView.addSubview(chatBubble)
+        contentView.addSubview(middleBubble)
+        contentView.addSubview(smallestBubble)
+        contentView.addSubview(dateLabel)
+    }
+    
+    private func setUpSenderBubbleConstraints() {
+        setUpSenderSmallBubbleConstraints()
+        setUpSenderMiddleBubbleConstraints()
+        setUpSenderChatBubbleConstraints()
+        setUpRightMessageLabelConstraints()
+        setUpRightDateLabelConstraints()
+    }
+    
+    private func setUpSenderBubbleColor() {
+        chatBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
+        middleBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
+        smallestBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
     }
     
     private func setUpRecieverBubbleConstraints() {
@@ -76,13 +97,6 @@ final class MessageTableViewCell: UITableViewCell {
         setUpRecieverMiddleBubble()
         setUpMessageLabel()
         setUpDateLabel()
-    }
-    
-    private func setUpBubbles() {
-        contentView.addSubview(chatBubble)
-        contentView.addSubview(middleBubble)
-        contentView.addSubview(smallestBubble)
-        contentView.addSubview(dateLabel)
     }
     
     private func setUpRecieverChatBubble() {
@@ -127,20 +141,6 @@ final class MessageTableViewCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.DateLabelConstraints.leading),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.DateLabelConstraints.bottom)
         ])
-    }
-    
-    private func setUpSenderBubbleConstraints() {
-        setUpSenderSmallBubbleConstraints()
-        setUpSenderMiddleBubbleConstraints()
-        setUpSenderChatBubbleConstraints()
-        setUpRightMessageLabelConstraints()
-        setUpRightDateLabelConstraints()
-    }
-    
-    private func setUpSenderBubbleColor() {
-        chatBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
-        middleBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
-        smallestBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
     }
     
     private func setUpSenderSmallBubbleConstraints() {
