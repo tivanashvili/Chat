@@ -7,10 +7,18 @@
 
 import UIKit
 
+protocol ChatViewDelegate: AnyObject {
+    func didSendMessage(message: Message)
+}
+
 final class ChatView: UIView {
     
     // MARK: Components
     private let textInputComponentView = TextInputComponentView()
+
+    private var loggedInUserID = 0
+    
+    weak var sendButtonDelegate: ChatViewDelegate?
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -23,13 +31,7 @@ final class ChatView: UIView {
     }()
     
     // MARK: Properties
-    let recievedData: ReceivedData = ReceivedData(loggedInUserID: 1, messages: [
-        Message(userID: 2, message: "Hello", date: Date()),
-        Message(userID: 1, message: "How are you?", date: Date()),
-        Message(userID: 2, message: "Thanks", date: Date()),
-        Message(userID: 1, message: "Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
-        Message(userID: 2, message: "Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text,Long Text", date: Date()),
-    ])
+    var recievedData: ReceivedData = ReceivedData(messages: [])
     
     // MARK: Init
     override init(frame: CGRect) {
@@ -61,6 +63,7 @@ final class ChatView: UIView {
     
     private func setUpTextInputComponentView() {
         addSubview(textInputComponentView)
+        textInputComponentView.delegate = self
         textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textInputComponentView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
@@ -68,6 +71,15 @@ final class ChatView: UIView {
             textInputComponentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             textInputComponentView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
+    }
+    
+    func setLoggedInUserId(loggedInUserId : Int){
+        self.loggedInUserID = loggedInUserId
+    }
+    
+    func recieveMessage(message: Message){
+        recievedData.messages.append(message)
+        tableView.reloadData()
     }
 }
 
@@ -82,8 +94,15 @@ extension ChatView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
         
         let message = recievedData.messages[indexPath.row]
-        cell.configure(with: message, bubblePosition: message.userID == recievedData.loggedInUserID ? .left : .right)
+        cell.configure(with: message, bubblePosition: message.userID != self.loggedInUserID ? .left : .right)
 
         return cell
+    }
+}
+
+// MARK: - TextInputComponentViewDelegate
+extension ChatView: TextInputComponentViewDelegate {
+    func didTapButton(text: String) {
+        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date()))
     }
 }

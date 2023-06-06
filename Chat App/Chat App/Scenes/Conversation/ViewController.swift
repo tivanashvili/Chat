@@ -14,7 +14,11 @@ final class ViewController: UIViewController {
     private let separatorView = UIView()
     private let bottomChatView = ChatView()
     private let switchButton = DayLightSwitch()
+    private let chatViewModel = ChatViewModel()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
+    
+    private let topChatViewUserID = Constants.userID.topChatViewUserID
+    private let bottomChatViewUserID = Constants.userID.bottomChatViewUserID
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,11 @@ final class ViewController: UIViewController {
         
         setUpConstraintsForSubviews()
         switchButton.delegate = self
+        topChatView.sendButtonDelegate = self
+        bottomChatView.sendButtonDelegate = self
+        
+        topChatView.setLoggedInUserId(loggedInUserId: topChatViewUserID)
+        bottomChatView.setLoggedInUserId(loggedInUserId: bottomChatViewUserID)
     }
     
     private func addTapGestureRecognizer() {
@@ -76,7 +85,7 @@ final class ViewController: UIViewController {
         ])
     }
 }
-// MARK: Switcher Delegate
+// MARK: - Switcher Delegate
 extension ViewController: DayLightSwitchDelegate {
     func didToggleSwitch(with state: BackgroundMode) {
         switch state {
@@ -90,5 +99,13 @@ extension ViewController: DayLightSwitchDelegate {
     func updateBackground(with color: UIColor, statusBarStyle: UIStatusBarStyle) {
         [topChatView, bottomChatView, view].forEach { $0.backgroundColor = color }
         self.statusBarStyle = statusBarStyle
+    }
+}
+extension ViewController: ChatViewDelegate {
+    func didSendMessage(message: Message) {
+        topChatView.recieveMessage(message: message)
+        bottomChatView.recieveMessage(message: message)
+        
+        chatViewModel.createMessage(message: message)
     }
 }

@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol TextInputComponentViewDelegate: AnyObject {
+    func didTapButton(text: String)
+}
+
 final class TextInputComponentView: UIView {
     
     // MARK: Components
     private var containerViewHeightConstraint: NSLayoutConstraint?
     
+    weak var delegate: TextInputComponentViewDelegate?
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.text = Constants.TextView.placeHolder
@@ -31,6 +37,7 @@ final class TextInputComponentView: UIView {
     private let sendButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: Constants.TextView.sendButton), for: .normal)
+        button.addTarget((Any).self, action: #selector(TextInputComponentView.didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -75,6 +82,13 @@ final class TextInputComponentView: UIView {
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.ContainerView.side),
             containerView.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.ContainerView.height)
         ])
+    }
+    
+    @objc private func didTapButton(_ sender: UIButton) {
+        if let message = textView.text {
+            delegate?.didTapButton(text: message)
+            textView.text = ""
+        }
     }
     
     private func setUpSendButton() {

@@ -28,5 +28,10 @@ extension ViewController {
             static let top: CGFloat = 16
             static let bottom: CGFloat = -30
         }
+        enum userID {
+            static let topChatViewUserID = 1
+            static let bottomChatViewUserID = 2
+        }
     }
 }
+

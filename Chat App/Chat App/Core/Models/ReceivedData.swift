@@ -6,6 +6,5 @@
 //
 
 struct ReceivedData {
-    let loggedInUserID: Int
-    let messages: [Message]
+    var messages: [Message]
 }
