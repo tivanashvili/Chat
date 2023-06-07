@@ -15,7 +15,7 @@ final class ChatView: UIView {
     
     // MARK: Components
     private let textInputComponentView = TextInputComponentView()
-
+    
     private var loggedInUserID = 0
     
     weak var sendButtonDelegate: ChatViewDelegate?
@@ -77,9 +77,11 @@ final class ChatView: UIView {
         self.loggedInUserID = loggedInUserId
     }
     
-    func recieveMessage(message: Message){
-        recievedData.messages.append(message)
-        tableView.reloadData()
+    func recieveMessage(message: Message) {
+        if !message.sendFailed || message.userID == loggedInUserID {
+            recievedData.messages.append(message)
+            tableView.reloadData()
+        }
     }
 }
 
@@ -95,7 +97,7 @@ extension ChatView: UITableViewDataSource {
         
         let message = recievedData.messages[indexPath.row]
         cell.configure(with: message, bubblePosition: message.userID != self.loggedInUserID ? .left : .right)
-
+        
         return cell
     }
 }
@@ -103,6 +105,6 @@ extension ChatView: UITableViewDataSource {
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: TextInputComponentViewDelegate {
     func didTapButton(text: String) {
-        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date()))
+        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
     }
 }

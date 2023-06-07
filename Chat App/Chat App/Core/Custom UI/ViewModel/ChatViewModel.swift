@@ -8,26 +8,18 @@
 import Foundation
 import CoreData
 
-final class ChatViewModel {
-
-    private (set) var messages = [Message]() {
-        didSet {
-            reloadTableView?()
-        }
+class ChatViewModel {
+    private let coreDataManager = CoreDataManger.shared
+    private var messages: [Message] = []
+    
+    func saveMessage(userID: Int, message: String, date: Date, sendFailed: Bool) {
+        let messageModel = Message(userID: userID, message: message, date: date, sendFailed: sendFailed)
+        coreDataManager.saveMessage(messageModel)
+        messages.append(messageModel)
     }
-
-    var reloadTableView:(() -> ())?
-    let coreDataManager = CoreDataManager.shared
-
-    func createMessage(message: Message) {
-        coreDataManager.saveMessage(userID: Int32(message.userID), message: message.message, date: message.date)
-        DispatchQueue.main.async {
-            self.fetchMessage()
-            print(self.messages)
-        }
-    }
-
-    private func fetchMessage() {
-        messages = coreDataManager.fetchMessages()
+    
+    func getAllMessages() -> [Message] {
+        messages = coreDataManager.fetchAllMessages()
+        return messages
     }
 }

@@ -17,7 +17,7 @@ final class TextInputComponentView: UIView {
     private var containerViewHeightConstraint: NSLayoutConstraint?
     
     weak var delegate: TextInputComponentViewDelegate?
-
+    
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.text = Constants.TextView.placeHolder

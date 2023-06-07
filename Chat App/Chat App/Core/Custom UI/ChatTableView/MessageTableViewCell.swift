@@ -192,6 +192,14 @@ final class MessageTableViewCell: UITableViewCell {
         messageLabel.text = message.message
         dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
         
+        if message.sendFailed && bubblePosition == .right {
+            dateLabel.text = Constants.SendFailedText.text
+            messageLabel.textColor = .gray
+            dateLabel.textColor = .red
+        } else {
+            dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
+        }
+        
         switch bubblePosition {
         case .left:
             setUpRecieverBubbleConstraints()

@@ -4,34 +4,38 @@
 //
 //  Created by tornike on 02.06.23.
 //
+
+import Foundation
 import CoreData
-import UIKit
 
 class CoreDataStack {
-    private let modelName: String
-
-    init(modelName: String) {
-        self.modelName = modelName
-    }
-
-    private lazy var storeContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: self.modelName)
-        container.loadPersistentStores { _, error in
-            if let error = error as NSError? {
-                print("Unresolved error \(error), \(error.userInfo)")
+    static let shared = CoreDataStack()
+    
+    init() {}
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Chat_App")
+        container.loadPersistentStores { (_, error) in
+            if let error = error {
+                fatalError("Failed to load persistent stores: \(error)")
             }
         }
         return container
     }()
-
-    lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
-
+    
+    var viewContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+    
     func saveContext() {
-        guard managedContext.hasChanges else { return }
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Unresolved error \(error), \(error.userInfo)")
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                fatalError("Failed to save context: \(error)")
+            }
         }
     }
 }
+
+

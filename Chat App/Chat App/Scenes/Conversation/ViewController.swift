@@ -24,6 +24,10 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         setUp()
         addTapGestureRecognizer()
+
+        let allMessages = chatViewModel.getAllMessages()
+        topChatView.recievedData.messages = allMessages
+        bottomChatView.recievedData.messages = allMessages
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -106,6 +110,6 @@ extension ViewController: ChatViewDelegate {
         topChatView.recieveMessage(message: message)
         bottomChatView.recieveMessage(message: message)
         
-        chatViewModel.createMessage(message: message)
+        chatViewModel.saveMessage(userID: message.userID, message: message.message, date: message.date, sendFailed: message.sendFailed)
     }
 }

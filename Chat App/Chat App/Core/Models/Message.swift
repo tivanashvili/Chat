@@ -11,4 +11,5 @@ struct Message {
     let userID: Int
     let message: String
     let date: Date
+    let sendFailed: Bool
 }

@@ -22,6 +22,9 @@ extension MessageTableViewCell {
         enum DateConfigure {
             static let date = "MMM MM, HH:mm"
         }
+        enum SendFailedText {
+            static let text = "არ გაიგზავნა"
+        }
         enum ChatBubbleConstraints {
             static let smallestBubbleBottom: CGFloat = -20
             static let smallestBubbleLeading: CGFloat = 20

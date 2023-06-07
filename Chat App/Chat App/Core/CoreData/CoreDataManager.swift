@@ -8,44 +8,45 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
+class CoreDataManger {
+    static let shared = CoreDataManger()
+    private let coreDataStack = CoreDataStack.shared
     
-    static let shared = CoreDataManager()
-    let context = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
-
-    func fetchMessages() -> [Message] {
-        var messages = [Message]()
-        do {
-            let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
-            let messageEntities = try context.fetch(fetchRequest)
-            
-            messages = messageEntities.map { messageEntity in
-                let message = Message(
-                    userID: Int(messageEntity.userID),
-                    message: messageEntity.message ?? "",
-                    date: messageEntity.date ?? Date()
-                )
-                return message
+    private init() {}
+    
+    func saveMessage(_ message: Message) {
+        coreDataStack.viewContext.perform {
+            guard let entity = NSEntityDescription.insertNewObject(forEntityName: "MessageEntity", into: self.coreDataStack.viewContext) as? MessageEntity else {
+                return
             }
-        } catch let error as NSError {
-            print("Failed to fetch messages: \(error)")
+            
+            entity.userID = Int32(message.userID)
+            entity.message = message.message
+            entity.date = message.date
+            entity.sendFailed = message.sendFailed
+            
+            self.coreDataStack.saveContext()
         }
-        return messages
     }
-
-
-    func saveMessage(userID: Int32, message: String, date: Date) {
-        let messageEntity = MessageEntity(context: context)
-        messageEntity.userID = userID
-        messageEntity.message = message
-        messageEntity.date = date
-
+    
+    func fetchAllMessages() -> [Message] {
+        let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
+        
         do {
-            try context.save()
-            AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
-            print("message saved")
-        } catch let error as NSError {
-            print("Failed to save message: \(error), \(error.userInfo)")
+            let result = try coreDataStack.viewContext.fetch(fetchRequest)
+            return result.map { messageEntity in
+                let userID = Int(messageEntity.userID)
+                let message = messageEntity.message ?? ""
+                let date = messageEntity.date ?? Date()
+                let sendFailed = messageEntity.sendFailed
+                
+                return Message(userID: userID, message: message, date: date, sendFailed: sendFailed)
+            }
+        } catch {
+            print("Failed to fetch messages: \(error)")
+            return []
         }
     }
 }
+
+
