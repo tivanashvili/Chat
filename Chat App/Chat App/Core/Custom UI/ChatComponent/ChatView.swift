@@ -74,7 +74,7 @@ final class ChatView: UIView {
     }
     
     func setLoggedInUserId(loggedInUserId : Int){
-        self.loggedInUserID = loggedInUserId
+        loggedInUserID = loggedInUserId
     }
     
     func recieveMessage(message: Message) {

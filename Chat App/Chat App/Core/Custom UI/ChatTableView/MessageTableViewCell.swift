@@ -53,6 +53,9 @@ final class MessageTableViewCell: UITableViewCell {
         return bubble
     }()
     
+    private var senderConstraints: [NSLayoutConstraint] = []
+    private var receiverConstraints: [NSLayoutConstraint] = []
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
@@ -67,22 +70,14 @@ final class MessageTableViewCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         addSubViews()
-        setUpMessageLabel()
+        setupBubbles()
     }
     
     private func addSubViews() {
-        contentView.addSubview(chatBubble)
-        contentView.addSubview(middleBubble)
-        contentView.addSubview(smallestBubble)
-        contentView.addSubview(dateLabel)
-    }
-    
-    private func setUpSenderBubbleConstraints() {
-        setUpSenderSmallBubbleConstraints()
-        setUpSenderMiddleBubbleConstraints()
-        setUpSenderChatBubbleConstraints()
-        setUpRightMessageLabelConstraints()
-        setUpRightDateLabelConstraints()
+        let subviews: [UIView] = [smallestBubble,middleBubble, chatBubble, dateLabel, messageLabel]
+        for subview in subviews {
+            contentView.addSubview(subview)
+        }
     }
     
     private func setUpSenderBubbleColor() {
@@ -91,101 +86,63 @@ final class MessageTableViewCell: UITableViewCell {
         smallestBubble.backgroundColor = Constants.SenderChatBubbleConstraints.backgroundColor
     }
     
-    private func setUpRecieverBubbleConstraints() {
-        setUpRecieverChatBubble()
-        setUpRecieverSmallestBubble()
-        setUpRecieverMiddleBubble()
-        setUpMessageLabel()
-        setUpDateLabel()
+    private func setUpRecieverBubbleColor() {
+        chatBubble.backgroundColor = Constants.RecieverColor.backgroundColor
+        middleBubble.backgroundColor = Constants.RecieverColor.backgroundColor
+        smallestBubble.backgroundColor = Constants.RecieverColor.backgroundColor
     }
     
-    private func setUpRecieverChatBubble() {
-        NSLayoutConstraint.activate([
-            chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor),
-            chatBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleLeading),
-            chatBubble.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleTrailing)
-        ])
-    }
-    
-    private func setUpRecieverMiddleBubble() {
-        NSLayoutConstraint.activate([
-            middleBubble.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleLeading),
-            middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleBottom),
-            middleBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleWidth),
-            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight)
-        ])
-    }
-    
-    private func setUpRecieverSmallestBubble() {
-        NSLayoutConstraint.activate([
-            smallestBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleLeading),
-            smallestBubble.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleBottom),
-            smallestBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleWidth),
-            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight)
-        ])
-    }
-    
-    private func setUpMessageLabel() {
-        chatBubble.addSubview(messageLabel)
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: chatBubble.topAnchor, constant: Constants.CellLabelConstraints.top),
-            messageLabel.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.CellLabelConstraints.sides),
-            messageLabel.trailingAnchor.constraint(equalTo: chatBubble.trailingAnchor, constant: -Constants.CellLabelConstraints.sides),
-            messageLabel.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.CellLabelConstraints.bottom)
-        ])
-    }
-    
-    private func setUpDateLabel() {
-        NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.DateLabelConstraints.top),
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.DateLabelConstraints.leading),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.DateLabelConstraints.bottom)
-        ])
-    }
-    
-    private func setUpSenderSmallBubbleConstraints() {
-        NSLayoutConstraint.activate([
+    func setupBubbles () {
+        senderConstraints = [
             smallestBubble.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.SenderSmallBubbleConstraints.trailing),
             smallestBubble.topAnchor.constraint(equalTo: middleBubble.bottomAnchor, constant: Constants.SenderSmallBubbleConstraints.topAnchor),
             smallestBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleWidth),
-            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight)
-        ])
-    }
-    
-    private func setUpSenderMiddleBubbleConstraints() {
-        NSLayoutConstraint.activate([
+            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight),
+            
             middleBubble.trailingAnchor.constraint(equalTo: chatBubble.trailingAnchor, constant: Constants.SenderMiddleBubbleConstraints.trailing),
             middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.SenderMiddleBubbleConstraints.bottom),
             middleBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleWidth),
-            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight)
-        ])
-    }
-    
-    private func setUpSenderChatBubbleConstraints() {
-        NSLayoutConstraint.activate([
+            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight),
+            
             chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.SenderChatBubbleConstraints.top),
             chatBubble.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.SenderChatBubbleConstraints.trailing),
             chatBubble.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: Constants.SenderChatBubbleConstraints.bottom),
-            chatBubble.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: -Constants.ChatBubbleConstraints.chatBubbleTrailing)
-        ])
-    }
-    
-    private func setUpRightMessageLabelConstraints() {
-        NSLayoutConstraint.activate([
+            chatBubble.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: -Constants.ChatBubbleConstraints.chatBubbleTrailing),
+            
+            dateLabel.topAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.SenderDateLabelConstraints.top),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.SenderDateLabelConstraints.trailing),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.SenderDateLabelConstraints.bottom),
+            
             messageLabel.topAnchor.constraint(equalTo: chatBubble.topAnchor, constant: Constants.SenderMessageLabelConstraints.top),
             messageLabel.trailingAnchor.constraint(equalTo: chatBubble.trailingAnchor, constant: Constants.SenderMessageLabelConstraints.trailing),
             messageLabel.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.SenderMessageLabelConstraints.bottom),
             messageLabel.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.SenderMessageLabelConstraints.leading)
-        ])
-        messageLabel.textAlignment = .right
-    }
-    
-    private func setUpRightDateLabelConstraints() {
-        NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.SenderDateLabelConstraints.top),
-            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.SenderDateLabelConstraints.trailing),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.SenderDateLabelConstraints.bottom),
-        ])
+        ]
+        
+        receiverConstraints = [
+            smallestBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleLeading),
+            smallestBubble.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.ChatBubbleConstraints.smallestBubbleBottom),
+            smallestBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleWidth),
+            smallestBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.smallestBubbleHeight),
+            
+            middleBubble.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleLeading),
+            middleBubble.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.ChatBubbleConstraints.middleBubbleBottom),
+            middleBubble.widthAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleWidth),
+            middleBubble.heightAnchor.constraint(equalToConstant: Constants.ChatBubbleConstraints.middleBubbleHeight),
+            
+            chatBubble.topAnchor.constraint(equalTo: contentView.topAnchor),
+            chatBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleLeading),
+            chatBubble.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: Constants.ChatBubbleConstraints.chatBubbleTrailing),
+            
+            messageLabel.topAnchor.constraint(equalTo: chatBubble.topAnchor, constant: Constants.CellLabelConstraints.top),
+            messageLabel.leadingAnchor.constraint(equalTo: chatBubble.leadingAnchor, constant: Constants.CellLabelConstraints.sides),
+            messageLabel.trailingAnchor.constraint(equalTo: chatBubble.trailingAnchor, constant: -Constants.CellLabelConstraints.sides),
+            messageLabel.bottomAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.CellLabelConstraints.bottom),
+            
+            dateLabel.topAnchor.constraint(equalTo: chatBubble.bottomAnchor, constant: Constants.DateLabelConstraints.top),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.DateLabelConstraints.leading),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.DateLabelConstraints.bottom)
+        ]
     }
     
     func configure(with message: Message, bubblePosition: BubblePosition) {
@@ -201,11 +158,15 @@ final class MessageTableViewCell: UITableViewCell {
         }
         
         switch bubblePosition {
-        case .left:
-            setUpRecieverBubbleConstraints()
         case .right:
-            setUpSenderBubbleConstraints()
+            NSLayoutConstraint.deactivate(receiverConstraints)
+            NSLayoutConstraint.activate(senderConstraints)
             setUpSenderBubbleColor()
+            
+        case .left:
+            NSLayoutConstraint.deactivate(senderConstraints)
+            NSLayoutConstraint.activate(receiverConstraints)
+            setUpRecieverBubbleColor()
         }
     }
 }

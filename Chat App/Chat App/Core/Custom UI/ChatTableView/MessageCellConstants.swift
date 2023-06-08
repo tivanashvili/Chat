@@ -89,5 +89,8 @@ extension MessageTableViewCell {
             static let trailing: CGFloat = -55
             static let bottom: CGFloat = -16
         }
+        enum RecieverColor {
+            static let backgroundColor = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1.0)
+        }
     }
 }
