@@ -110,6 +110,6 @@ extension ConversationViewController: ChatViewDelegate {
         topChatView.recieveMessage(message: message)
         bottomChatView.recieveMessage(message: message)
         
-        conversationViewModel.saveMessage(userID: message.userID, message: message.message, date: message.date, sendFailed: message.sendFailed)
+        conversationViewModel.saveMessage(message: message)
     }
 }

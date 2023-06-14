@@ -13,10 +13,9 @@ class ConversationViewModel {
     private let coreDataManager = CoreDataManger.shared
     private var messages: [Message] = []
     
-    func saveMessage(userID: Int, message: String, date: Date, sendFailed: Bool) {
-        let messageModel = Message(userID: userID, message: message, date: date, sendFailed: sendFailed)
-        coreDataManager.saveMessage(messageModel)
-        messages.append(messageModel)
+    func saveMessage(message: Message) {
+        coreDataManager.saveMessage(message)
+        messages.append(message)
     }
     
     func getAllMessages() -> [Message] {
