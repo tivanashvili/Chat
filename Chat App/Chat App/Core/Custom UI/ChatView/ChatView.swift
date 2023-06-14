@@ -28,17 +28,22 @@ final class ChatView: UIView {
     
     // MARK: Properties
     weak var sendButtonDelegate: ChatViewDelegate?
-    private var recievedData: ReceivedData = ReceivedData(messages: [])
-    private var loggedInUserID = 0
+    
+    private var viewModel: ChatViewModel
     
     // MARK: Init
-    override init(frame: CGRect) {
+    init(viewModel: ChatViewModel) {
+        self.viewModel = viewModel        
         super.init(frame: .zero)
         setUp()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func refresh(){
+        self.tableView.reloadData()
     }
     
     // MARK: Setup
@@ -70,37 +75,20 @@ final class ChatView: UIView {
             textInputComponentView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
-    
-    func setLoggedInUserId(loggedInUserId : Int){
-        loggedInUserID = loggedInUserId
-    }
-    
-    func recieveMessage(message: Message) {
-        if !message.sendFailed || message.userID == loggedInUserID {
-            recievedData.messages.append(message)
-            tableView.reloadData()
-        }
-    }
-    
-    func recieveMessages(messages: [Message]) {
-        for messages in messages{
-            self.recieveMessage(message: messages)
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource
 extension ChatView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recievedData.messages.count
+        viewModel.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
         
-        let message = recievedData.messages[indexPath.row]
-        cell.configure(with: message, bubblePosition: message.userID != self.loggedInUserID ? .left : .right)
+        let message = viewModel.messages[indexPath.row]
+        cell.configure(with: message, bubblePosition: message.userID != viewModel.loggedInUserID ? .left : .right)
         
         return cell
     }
@@ -109,6 +97,6 @@ extension ChatView: UITableViewDataSource {
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: TextInputComponentViewDelegate {
     func didTapButton(text: String) {
-        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
+        sendButtonDelegate?.didSendMessage(message: Message(userID: viewModel.loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
     }
 }

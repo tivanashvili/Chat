@@ -10,28 +10,34 @@ import UIKit
 final class ConversationViewController: UIViewController {
     
     // MARK: Components
-    private let topChatView = ChatView()
+    private let topChatView: ChatView
     private let separatorView = UIView()
-    private let bottomChatView = ChatView()
+    private let bottomChatView: ChatView
     private let switchButton = DayLightSwitch()
-    private let conversationViewModel = ConversationViewModel()
+    private let conversationViewModel: ConversationViewModel
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     
-    private let topChatViewUserID = Constants.userID.topChatViewUserID
-    private let bottomChatViewUserID = Constants.userID.bottomChatViewUserID
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return statusBarStyle
+    }
+    
+    // MARK: - Initilizers
+    
+    init() {
+        conversationViewModel = ConversationViewModel()
+        topChatView = ChatView(viewModel: conversationViewModel.topViewModel)
+        bottomChatView = ChatView(viewModel: conversationViewModel.bottomViewModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
         addTapGestureRecognizer()
-
-        let allMessages = conversationViewModel.getAllMessages()
-        topChatView.recieveMessages(messages: allMessages)
-        bottomChatView.recieveMessages(messages: allMessages)
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return statusBarStyle
     }
     
     func setUp() {
@@ -44,9 +50,6 @@ final class ConversationViewController: UIViewController {
         switchButton.delegate = self
         topChatView.sendButtonDelegate = self
         bottomChatView.sendButtonDelegate = self
-        
-        topChatView.setLoggedInUserId(loggedInUserId: topChatViewUserID)
-        bottomChatView.setLoggedInUserId(loggedInUserId: bottomChatViewUserID)
     }
     
     private func addTapGestureRecognizer() {
@@ -106,10 +109,9 @@ extension ConversationViewController: DayLightSwitchDelegate {
     }
 }
 extension ConversationViewController: ChatViewDelegate {
-    func didSendMessage(message: Message) {
-        topChatView.recieveMessage(message: message)
-        bottomChatView.recieveMessage(message: message)
-        
+    func didSendMessage(message: Message) {        
         conversationViewModel.saveMessage(message: message)
+        self.topChatView.refresh()
+        self.bottomChatView.refresh()
     }
 }

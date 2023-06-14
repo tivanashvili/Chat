@@ -8,8 +8,8 @@
 import Foundation
 import CoreData
 
-class CoreDataManger {
-    static let shared = CoreDataManger()
+class CoreDataManager {
+    static let shared = CoreDataManager()
     private let coreDataStack = CoreDataStack.shared
     
     private init() {}

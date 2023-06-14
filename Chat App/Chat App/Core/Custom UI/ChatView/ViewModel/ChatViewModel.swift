@@ -7,18 +7,26 @@
 
 import Foundation
 
-protocol ChatViewModelDelegate: AnyObject {
-    func didUpdateMessages()
-}
-
-struct ChatViewModel {
-    var loggedInUserID: Int
+class ChatViewModel {
+    let loggedInUserID: Int
     var messages: [Message]
     
-    weak var delegate: ChatViewModelDelegate?
+    init(loggedInUserID: Int, messages: [Message]){
+        self.loggedInUserID = loggedInUserID
+        self.messages = messages
+    }
     
-    mutating func addMessage(message: Message) {
-        messages.append(message)
-        delegate?.didUpdateMessages()
+    func recieveMessage(message: Message) {
+        if isMessageValid(message: message) {
+            messages.append(message)
+        }
+    }
+    
+    func recieveMessages(messages: [Message]) {
+        self.messages.append(contentsOf: messages.filter(isMessageValid))
+    }
+    
+    private func isMessageValid (message: Message) -> Bool {
+        return !message.sendFailed || message.userID == loggedInUserID
     }
 }

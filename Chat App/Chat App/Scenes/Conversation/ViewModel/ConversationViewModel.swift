@@ -10,16 +10,27 @@ import CoreData
 
 class ConversationViewModel {
     
-    private let coreDataManager = CoreDataManger.shared
-    private var messages: [Message] = []
+    private let coreDataManager =  CoreDataManager.shared
+    private(set) var topViewModel: ChatViewModel
+    private(set) var bottomViewModel: ChatViewModel
+    
+    init() {
+        topViewModel = ChatViewModel(loggedInUserID: 1, messages: [])
+        bottomViewModel = ChatViewModel(loggedInUserID: 2, messages: [])
+        
+        let messages = getAllMessages()
+        
+        topViewModel.recieveMessages(messages: messages)
+        bottomViewModel.recieveMessages(messages: messages)
+    }
     
     func saveMessage(message: Message) {
         coreDataManager.saveMessage(message)
-        messages.append(message)
+        topViewModel.recieveMessage(message: message)
+        bottomViewModel.recieveMessage(message: message)
     }
     
-    func getAllMessages() -> [Message] {
-        messages = coreDataManager.fetchAllMessages()
-        return messages
+    private func getAllMessages() -> [Message] {
+        return coreDataManager.fetchAllMessages()
     }
 }
