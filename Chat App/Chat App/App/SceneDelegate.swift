@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .white
-        let viewController = ViewController()
+        let viewController = ConversationViewController()
         
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()

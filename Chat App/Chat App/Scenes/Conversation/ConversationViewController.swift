@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ConversationViewController.swift
 //  Chat App
 //
 //  Created by tornike on 28.04.23.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ConversationViewController: UIViewController {
     
     // MARK: Components
     private let topChatView = ChatView()
     private let separatorView = UIView()
     private let bottomChatView = ChatView()
     private let switchButton = DayLightSwitch()
-    private let chatViewModel = ChatViewModel()
+    private let conversationViewModel = ConversationViewModel()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     
     private let topChatViewUserID = Constants.userID.topChatViewUserID
@@ -25,7 +25,7 @@ final class ViewController: UIViewController {
         setUp()
         addTapGestureRecognizer()
 
-        let allMessages = chatViewModel.getAllMessages()
+        let allMessages = conversationViewModel.getAllMessages()
         topChatView.recievedData.messages = allMessages
         bottomChatView.recievedData.messages = allMessages
     }
@@ -90,7 +90,7 @@ final class ViewController: UIViewController {
     }
 }
 // MARK: - Switcher Delegate
-extension ViewController: DayLightSwitchDelegate {
+extension ConversationViewController: DayLightSwitchDelegate {
     func didToggleSwitch(with state: BackgroundMode) {
         switch state {
         case .light:
@@ -105,11 +105,11 @@ extension ViewController: DayLightSwitchDelegate {
         self.statusBarStyle = statusBarStyle
     }
 }
-extension ViewController: ChatViewDelegate {
+extension ConversationViewController: ChatViewDelegate {
     func didSendMessage(message: Message) {
         topChatView.recieveMessage(message: message)
         bottomChatView.recieveMessage(message: message)
         
-        chatViewModel.saveMessage(userID: message.userID, message: message.message, date: message.date, sendFailed: message.sendFailed)
+        conversationViewModel.saveMessage(userID: message.userID, message: message.message, date: message.date, sendFailed: message.sendFailed)
     }
 }

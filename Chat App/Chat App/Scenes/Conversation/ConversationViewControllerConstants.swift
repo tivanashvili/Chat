@@ -1,5 +1,5 @@
 //
-//  ViewControllerConstants.swift
+//  ConversationViewControllerConstants.swift
 //  Chat App
 //
 //  Created by tornike on 29.04.23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ViewController {
+extension ConversationViewController {
     enum Constants {
         enum ViewColor {
             static let darkModeColor = UIColor(

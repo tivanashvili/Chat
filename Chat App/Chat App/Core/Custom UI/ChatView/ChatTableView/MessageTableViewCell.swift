@@ -162,7 +162,6 @@ final class MessageTableViewCell: UITableViewCell {
             NSLayoutConstraint.deactivate(receiverConstraints)
             NSLayoutConstraint.activate(senderConstraints)
             setUpSenderBubbleColor()
-            
         case .left:
             NSLayoutConstraint.deactivate(senderConstraints)
             NSLayoutConstraint.activate(receiverConstraints)

@@ -1,5 +1,5 @@
 //
-//  MessageCellConstants.swift
+//  MessageTableViewCellConstants.swift
 //  Chat App
 //
 //  Created by tornike on 15.05.23.

@@ -16,10 +16,6 @@ final class ChatView: UIView {
     // MARK: Components
     private let textInputComponentView = TextInputComponentView()
     
-    private var loggedInUserID = 0
-    
-    weak var sendButtonDelegate: ChatViewDelegate?
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -31,7 +27,9 @@ final class ChatView: UIView {
     }()
     
     // MARK: Properties
+    weak var sendButtonDelegate: ChatViewDelegate?
     var recievedData: ReceivedData = ReceivedData(messages: [])
+    private var loggedInUserID = 0
     
     // MARK: Init
     override init(frame: CGRect) {
