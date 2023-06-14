@@ -28,7 +28,7 @@ final class ChatView: UIView {
     
     // MARK: Properties
     weak var sendButtonDelegate: ChatViewDelegate?
-    var recievedData: ReceivedData = ReceivedData(messages: [])
+    private var recievedData: ReceivedData = ReceivedData(messages: [])
     private var loggedInUserID = 0
     
     // MARK: Init
@@ -79,6 +79,12 @@ final class ChatView: UIView {
         if !message.sendFailed || message.userID == loggedInUserID {
             recievedData.messages.append(message)
             tableView.reloadData()
+        }
+    }
+    
+    func recieveMessages(messages: [Message]) {
+        for messages in messages{
+            self.recieveMessage(message: messages)
         }
     }
 }

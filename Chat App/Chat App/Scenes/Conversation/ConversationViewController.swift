@@ -26,8 +26,8 @@ final class ConversationViewController: UIViewController {
         addTapGestureRecognizer()
 
         let allMessages = conversationViewModel.getAllMessages()
-        topChatView.recievedData.messages = allMessages
-        bottomChatView.recievedData.messages = allMessages
+        topChatView.recieveMessages(messages: allMessages)
+        bottomChatView.recieveMessages(messages: allMessages)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
