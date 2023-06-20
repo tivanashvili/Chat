@@ -155,6 +155,8 @@ final class MessageTableViewCell: UITableViewCell {
             dateLabel.textColor = .red
         } else {
             dateLabel.text = message.date.formatDate(dateFormat: Constants.DateConfigure.date)
+            dateLabel.textColor = .gray
+            messageLabel.textColor = .black
         }
         
         switch bubblePosition {

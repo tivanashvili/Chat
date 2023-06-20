@@ -42,8 +42,11 @@ final class ChatView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func refresh(){
+    func refresh() {
         self.tableView.reloadData()
+        let lastRow = viewModel.messages.count - 1
+        let lastIndexPath = IndexPath(row: lastRow, section: 0)
+        tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: true)
     }
     
     // MARK: Setup
