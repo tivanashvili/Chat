@@ -29,11 +29,13 @@ final class ChatView: UIView {
     // MARK: Properties
     weak var sendButtonDelegate: ChatViewDelegate?
     
-    private var viewModel: ChatViewModel
+    private let loggedInUserID: Int
+    private var messages: [Message]
     
     // MARK: Init
-    init(viewModel: ChatViewModel) {
-        self.viewModel = viewModel        
+    init(loggedInUserID: Int, messages: [Message]) {
+        self.loggedInUserID = loggedInUserID
+        self.messages = messages
         super.init(frame: .zero)
         setUp()
     }
@@ -42,9 +44,10 @@ final class ChatView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func refresh() {
+    func refresh(messages: [Message]) {
+        self.messages = messages
         self.tableView.reloadData()
-        let lastRow = viewModel.messages.count - 1
+        let lastRow = messages.count - 1
         let lastIndexPath = IndexPath(row: lastRow, section: 0)
         tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: true)
     }
@@ -84,14 +87,14 @@ final class ChatView: UIView {
 extension ChatView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.messages.count
+        messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellConstants.cellIdentifier, for: indexPath) as! MessageTableViewCell
         
-        let message = viewModel.messages[indexPath.row]
-        cell.configure(with: message, bubblePosition: message.userID != viewModel.loggedInUserID ? .left : .right)
+        let message = messages[indexPath.row]
+        cell.configure(with: message, bubblePosition: message.userID != loggedInUserID ? .left : .right)
         
         return cell
     }
@@ -100,6 +103,6 @@ extension ChatView: UITableViewDataSource {
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: TextInputComponentViewDelegate {
     func didTapButton(text: String) {
-        sendButtonDelegate?.didSendMessage(message: Message(userID: viewModel.loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
+        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		85080E582A36F517003653B9 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85080E572A36F517003653B9 /* ChatViewModel.swift */; };
 		85267FF32A3A160A0055F8C5 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85267FF22A3A160A0055F8C5 /* ConversationViewModel.swift */; };
 		855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3829FD2F4A00F49C9C /* ChatView.swift */; };
 		855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EBC3C29FD2F9700F49C9C /* TextInputComponentView.swift */; };
@@ -35,7 +34,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		85080E572A36F517003653B9 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		85267FF22A3A160A0055F8C5 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 		855EBC3829FD2F4A00F49C9C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		855EBC3C29FD2F9700F49C9C /* TextInputComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputComponentView.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 		85080E562A36F502003653B9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				85080E572A36F517003653B9 /* ChatViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -344,7 +341,6 @@
 				857709FE2A0BC4B3001C8CF2 /* SwitcherViewConstants.swift in Sources */,
 				855EBC4329FD2FF300F49C9C /* ConversationViewControllerConstants.swift in Sources */,
 				8565033D2A12431600DB56D5 /* MessageTableViewCellConstants.swift in Sources */,
-				85080E582A36F517003653B9 /* ChatViewModel.swift in Sources */,
 				85936E2629FBF8C5001AE1FE /* Chat_App.xcdatamodeld in Sources */,
 				855EBC3D29FD2F9700F49C9C /* TextInputComponentView.swift in Sources */,
 				85B7E7FB2A2DEF3600A04C1E /* CoreDataManager.swift in Sources */,

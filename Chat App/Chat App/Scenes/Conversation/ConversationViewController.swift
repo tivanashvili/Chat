@@ -25,8 +25,8 @@ final class ConversationViewController: UIViewController {
     
     init() {
         conversationViewModel = ConversationViewModel()
-        topChatView = ChatView(viewModel: conversationViewModel.topViewModel)
-        bottomChatView = ChatView(viewModel: conversationViewModel.bottomViewModel)
+        topChatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages())
+        bottomChatView = ChatView(loggedInUserID: Constants.userID.bottomChatViewUserID, messages: conversationViewModel.getMessages())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -111,7 +111,7 @@ extension ConversationViewController: DayLightSwitchDelegate {
 extension ConversationViewController: ChatViewDelegate {
     func didSendMessage(message: Message) {        
         conversationViewModel.saveMessage(message: message)
-        self.topChatView.refresh()
-        self.bottomChatView.refresh()
+        self.topChatView.refresh(messages: conversationViewModel.getMessages())
+        self.bottomChatView.refresh(messages: conversationViewModel.getMessages())
     }
 }
