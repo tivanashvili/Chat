@@ -18,7 +18,7 @@ class ConversationViewModel {
     }
     
     func getMessages(userID: Int) -> [Message] {
-        messages.filter{isMessageValid(message: $0, userID: userID)}
+        messages.filter { isMessageValid(message: $0, userID: userID) }
     }
     
     func saveMessage(message: Message) {

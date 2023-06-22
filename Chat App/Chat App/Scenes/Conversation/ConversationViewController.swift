@@ -43,7 +43,7 @@ final class ConversationViewController: UIViewController {
     }
     
     func setUp() {
-        let subviews: [UIView] = [topChatView, separatorView, bottomChatView, switchButton]
+        let subviews = [topChatView, separatorView, bottomChatView, switchButton]
         
         separatorView.backgroundColor = Constants.SeparatorView.separatorViewColor
         subviews.forEach { view.addSubview($0) }

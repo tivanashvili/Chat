@@ -25,7 +25,6 @@
 		85936E2829FBF8C7001AE1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2729FBF8C7001AE1FE /* Assets.xcassets */; };
 		85936E2B29FBF8C7001AE1FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85936E2929FBF8C7001AE1FE /* LaunchScreen.storyboard */; };
 		85B7E7DB2A1E2C3300A04C1E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7DA2A1E2C3300A04C1E /* Date+Extension.swift */; };
-		85B7E7E02A28D7E600A04C1E /* ReceivedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7DF2A28D7E600A04C1E /* ReceivedData.swift */; };
 		85B7E7E22A28ED4900A04C1E /* BubblePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7E12A28ED4900A04C1E /* BubblePosition.swift */; };
 		85B7E7E72A29F4C900A04C1E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7E62A29F4C900A04C1E /* CoreDataStack.swift */; };
 		85B7E7EC2A29F52D00A04C1E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B7E7EB2A29F52D00A04C1E /* Reachability.swift */; };
@@ -54,7 +53,6 @@
 		85936E2A29FBF8C7001AE1FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85936E2C29FBF8C7001AE1FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85B7E7DA2A1E2C3300A04C1E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		85B7E7DF2A28D7E600A04C1E /* ReceivedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedData.swift; sourceTree = "<group>"; };
 		85B7E7E12A28ED4900A04C1E /* BubblePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePosition.swift; sourceTree = "<group>"; };
 		85B7E7E62A29F4C900A04C1E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		85B7E7EB2A29F52D00A04C1E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				857709FB2A03DED7001C8CF2 /* Message.swift */,
-				85B7E7DF2A28D7E600A04C1E /* ReceivedData.swift */,
 				85B7E7E12A28ED4900A04C1E /* BubblePosition.swift */,
 			);
 			path = Models;
@@ -353,7 +350,6 @@
 				85B7E7EC2A29F52D00A04C1E /* Reachability.swift in Sources */,
 				855EBC3929FD2F4A00F49C9C /* ChatView.swift in Sources */,
 				85B7E7E22A28ED4900A04C1E /* BubblePosition.swift in Sources */,
-				85B7E7E02A28D7E600A04C1E /* ReceivedData.swift in Sources */,
 				85936E1E29FBF8C5001AE1FE /* SceneDelegate.swift in Sources */,
 				85267FF32A3A160A0055F8C5 /* ConversationViewModel.swift in Sources */,
 				85C26AC92A1630EF001716E4 /* UITextView+Extensions.swift in Sources */,
