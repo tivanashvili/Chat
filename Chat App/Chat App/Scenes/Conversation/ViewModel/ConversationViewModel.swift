@@ -10,15 +10,15 @@ import CoreData
 
 class ConversationViewModel {
     private var messages: [Message] = []
-    private let loggedInUserID: Int = 1
+    
     private let coreDataManager =  CoreDataManager.shared
     
     init() {
         messages = getAllMessages()
     }
     
-    func getMessages() -> [Message] {
-        messages.filter(isMessageValid)
+    func getMessages(userID: Int) -> [Message] {
+        messages.filter{isMessageValid(message: $0, userID: userID)}
     }
     
     func saveMessage(message: Message) {
@@ -27,10 +27,10 @@ class ConversationViewModel {
     }
     
     private func getAllMessages() -> [Message] {
-        return coreDataManager.fetchAllMessages()
+        coreDataManager.fetchAllMessages()
     }
     
-    private func isMessageValid (message: Message) -> Bool {
-        return !message.sendFailed || message.userID == loggedInUserID
+    private func isMessageValid (message: Message, userID: Int) -> Bool {
+        !message.sendFailed || message.userID == userID
     }
 }

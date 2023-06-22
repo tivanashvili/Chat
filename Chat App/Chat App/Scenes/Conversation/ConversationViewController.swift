@@ -20,13 +20,15 @@ final class ConversationViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return statusBarStyle
     }
+    private let topChatViewUserID: Int = Constants.userID.topChatViewUserID
+    private let bottomChatViewUserID: Int = Constants.userID.bottomChatViewUserID
     
     // MARK: - Initilizers
     
     init() {
         conversationViewModel = ConversationViewModel()
-        topChatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages())
-        bottomChatView = ChatView(loggedInUserID: Constants.userID.bottomChatViewUserID, messages: conversationViewModel.getMessages())
+        topChatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages(userID: topChatViewUserID))
+        bottomChatView = ChatView(loggedInUserID: Constants.userID.bottomChatViewUserID, messages: conversationViewModel.getMessages(userID: bottomChatViewUserID))
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -111,7 +113,7 @@ extension ConversationViewController: DayLightSwitchDelegate {
 extension ConversationViewController: ChatViewDelegate {
     func didSendMessage(message: Message) {        
         conversationViewModel.saveMessage(message: message)
-        self.topChatView.refresh(messages: conversationViewModel.getMessages())
-        self.bottomChatView.refresh(messages: conversationViewModel.getMessages())
+        topChatView.refresh(messages: conversationViewModel.getMessages(userID: topChatViewUserID))
+        bottomChatView.refresh(messages: conversationViewModel.getMessages(userID: bottomChatViewUserID))
     }
 }
