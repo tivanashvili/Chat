@@ -32,6 +32,13 @@ extension ConversationViewController {
             static let topChatViewUserID = 1
             static let bottomChatViewUserID = 2
         }
+        static let placeholderColor = UIColor(
+            red: 0.884,
+            green: 0.884,
+            blue: 0.884,
+            alpha: 1)
+        
+        static let userDefaultKey = "AppTheme"
     }
 }
 

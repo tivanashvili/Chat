@@ -20,11 +20,9 @@ final class TextInputComponentView: UIView {
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.text = Constants.TextView.placeHolder
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
         textView.isEditable = true
-        textView.textColor = Constants.TextView.placeholderColor
         textView.contentOffset = CGPoint(x: 0, y: (textView.contentSize.height - textView.frame.height) / 2)
         textView.textContainerInset = Constants.TextViewInsets.textInsets
         textView.font = UIFont.systemFont(ofSize: TextInputComponentView.Constants.TextView.fontSize)
@@ -32,6 +30,14 @@ final class TextInputComponentView: UIView {
         textView.delegate = self
         textView.backgroundColor = .clear
         return textView
+    }()
+    
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.TextView.placeHolder
+        label.textColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let sendButton: UIButton = {
@@ -50,6 +56,8 @@ final class TextInputComponentView: UIView {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
+    
+    private var isDark = false
     
     // MARK: Init
     init() {
@@ -71,6 +79,7 @@ final class TextInputComponentView: UIView {
         setUpContainerView()
         setUpSendButton()
         setUpTextView()
+        setUpPlaceHolderLabelConstraints()
     }
     
     private func setUpContainerView() {
@@ -111,6 +120,16 @@ final class TextInputComponentView: UIView {
         ])
     }
     
+    private func setUpPlaceHolderLabelConstraints() {
+        containerView.addSubview(placeholderLabel)
+        NSLayoutConstraint.activate([
+                placeholderLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constants.textViewPlaceHolderLabelTop),
+                placeholderLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: Constants.textViewPlaceHolderLabelBottom),
+                placeholderLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constants.textViewPlaceHolderLabelLeading),
+                placeholderLabel.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.textViewPlaceHolderLabelTrailing)
+            ])
+    }
+    
     private func updateTextViewHeight() {
         let maxLines = textView.calculateMaxLines()
         if maxLines > Constants.TextView.maxLines {
@@ -130,22 +149,23 @@ final class TextInputComponentView: UIView {
             containerViewHeightConstraint = nil
         }
     }
+    
+    func setUpTextView(with color: UIColor) {
+        textView.textColor = color
+    }
 }
 
 // MARK: - UITextViewDelegate
 extension TextInputComponentView: UITextViewDelegate {
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == Constants.TextView.placeholderColor {
-            textView.text = ""
-            textView.textColor = Constants.TextView.lightModeTextColor
-        }
+        placeholderLabel.text = ""
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = Constants.TextView.placeHolder
-            textView.textColor = Constants.TextView.placeholderColor
+            placeholderLabel.text = Constants.TextView.placeHolder
+            placeholderLabel.textColor = .lightGray
         }
     }
     

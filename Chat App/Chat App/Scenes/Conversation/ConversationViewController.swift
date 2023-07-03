@@ -20,11 +20,17 @@ final class ConversationViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return statusBarStyle
     }
-    private let topChatViewUserID: Int = Constants.userID.topChatViewUserID
-    private let bottomChatViewUserID: Int = Constants.userID.bottomChatViewUserID
+    private let topChatViewUserID = Constants.userID.topChatViewUserID
+    private let bottomChatViewUserID = Constants.userID.bottomChatViewUserID
+    
+    private var isDarkMode = false {
+        didSet {
+            UserDefaults.standard.set(isDarkMode, forKey: Constants.userDefaultKey)
+            updateAppearance(isDarkMode: isDarkMode)
+        }
+    }
     
     // MARK: - Initilizers
-    
     init() {
         conversationViewModel = ConversationViewModel()
         topChatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages(userID: topChatViewUserID))
@@ -40,6 +46,7 @@ final class ConversationViewController: UIViewController {
         super.viewDidLoad()
         setUp()
         addTapGestureRecognizer()
+        setUpInitialAppearance()
     }
     
     func setUp() {
@@ -62,6 +69,33 @@ final class ConversationViewController: UIViewController {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    private func setUpSwitchButtonViewToggle() {
+        switchButton.addTarget(self, action: #selector(switchButtonToggled(_:)), for: .valueChanged)
+    }
+
+    @objc private func switchButtonToggled(_ sender: UISwitch) {
+        let isOn = sender.isOn
+        UserDefaults.standard.set(isOn, forKey: Constants.userDefaultKey)
+        updateAppearance(isDarkMode: isOn)
+    }
+    
+    private func updateAppearance(isDarkMode: Bool) {
+        view.backgroundColor = isDarkMode ? Constants.ViewColor.darkModeColor : .white
+        switchButton.checkButtonState(isDarkMode: isDarkMode)
+        statusBarStyle = isDarkMode ? .lightContent : .darkContent
+        setUpMessageColors(with: isDarkMode ? .white : .black)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    private func setUpMessageColors(with color: UIColor) {
+        topChatView.setUptextInputComponentViewColor(with: color)
+        bottomChatView.setUptextInputComponentViewColor(with: color)
+    }
+    
+    private func setUpInitialAppearance() {
+        isDarkMode = UserDefaults.standard.bool(forKey: Constants.userDefaultKey)
     }
     
     // MARK: layout constraints
@@ -99,12 +133,14 @@ extension ConversationViewController: DayLightSwitchDelegate {
     func didToggleSwitch(with state: BackgroundMode) {
         switch state {
         case .light:
-            updateBackground(with: .white, statusBarStyle: .darkContent)
+            UserDefaults.standard.set(false, forKey: Constants.userDefaultKey)
+            updateAppearance(isDarkMode: false)
         case .dark:
-            updateBackground(with: Constants.ViewColor.darkModeColor, statusBarStyle: .lightContent)
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKey)
+            updateAppearance(isDarkMode: true)
         }
-        setNeedsStatusBarAppearanceUpdate()
     }
+
     func updateBackground(with color: UIColor, statusBarStyle: UIStatusBarStyle) {
         [topChatView, bottomChatView, view].forEach { $0.backgroundColor = color }
         self.statusBarStyle = statusBarStyle

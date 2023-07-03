@@ -81,6 +81,10 @@ final class ChatView: UIView {
             textInputComponentView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
+    
+    func setUptextInputComponentViewColor(with color: UIColor) {
+        textInputComponentView.setUpTextView(with: color)
+    }
 }
 
 // MARK: - UITableViewDataSource

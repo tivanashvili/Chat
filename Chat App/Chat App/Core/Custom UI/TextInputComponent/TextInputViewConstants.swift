@@ -9,6 +9,12 @@ import UIKit
 
 extension TextInputComponentView {
     enum Constants {
+        
+        static let textViewPlaceHolderLabelLeading: CGFloat = 22
+        static let textViewPlaceHolderLabelTop: CGFloat = 10
+        static let textViewPlaceHolderLabelBottom: CGFloat = -10
+        static let textViewPlaceHolderLabelTrailing: CGFloat = -5
+        
         enum Button {
             static let bottom: CGFloat = -12
             static let trailing: CGFloat = -12

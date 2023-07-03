@@ -43,4 +43,8 @@ final class DayLightSwitch: UIButton {
         isSelected.toggle()
         delegate?.didToggleSwitch(with: isSelected ? .dark : .light)
     }
+    
+    func checkButtonState(isDarkMode: Bool) {
+        isSelected = isDarkMode
+    }
 }
