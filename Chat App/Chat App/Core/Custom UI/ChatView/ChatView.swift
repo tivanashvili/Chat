@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ChatViewDelegate: AnyObject {
-    func didSendMessage(message: Message)
+    func didSendMessage(userID: Int, text: String)
 }
 
 final class ChatView: UIView {
@@ -113,6 +113,6 @@ extension ChatView: UITableViewDataSource {
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: TextInputComponentViewDelegate {
     func didTapButton(text: String) {
-        sendButtonDelegate?.didSendMessage(message: Message(userID: loggedInUserID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork()))
+        sendButtonDelegate?.didSendMessage(userID: loggedInUserID, text: text)
     }
 }

@@ -21,7 +21,8 @@ class ConversationViewModel {
         messages.filter { isMessageValid(message: $0, userID: userID) }
     }
     
-    func saveMessage(message: Message) {
+    func saveMessage(userID: Int, text: String) {
+        let message = Message(userID: userID, message: text, date: Date(), sendFailed: !Reachability.isConnectedToNetwork())
         messages.append(message)
         coreDataManager.saveMessage(message)
     }

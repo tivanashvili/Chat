@@ -153,8 +153,8 @@ extension ConversationViewController: DayLightSwitchDelegate {
     }
 }
 extension ConversationViewController: ChatViewDelegate {
-    func didSendMessage(message: Message) {        
-        conversationViewModel.saveMessage(message: message)
+    func didSendMessage(userID: Int, text: String) {        
+        conversationViewModel.saveMessage(userID: userID, text: text)
         topChatView.refresh(messages: conversationViewModel.getMessages(userID: topChatViewUserID))
         bottomChatView.refresh(messages: conversationViewModel.getMessages(userID: bottomChatViewUserID))
     }
