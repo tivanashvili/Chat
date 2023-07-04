@@ -92,18 +92,18 @@
 				85080E562A36F502003653B9 /* ViewModel */,
 				855EBC3829FD2F4A00F49C9C /* ChatView.swift */,
 				8565033A2A1241BE00DB56D5 /* ChatViewConstants.swift */,
-				855EBC3329FD2E0200F49C9C /* ChatTableView */,
+				855EBC3329FD2E0200F49C9C /* TableViewCells */,
 			);
 			path = ChatView;
 			sourceTree = "<group>";
 		};
-		855EBC3329FD2E0200F49C9C /* ChatTableView */ = {
+		855EBC3329FD2E0200F49C9C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				857709F82A03B6B2001C8CF2 /* MessageTableViewCell.swift */,
 				8565033C2A12431600DB56D5 /* MessageTableViewCellConstants.swift */,
 			);
-			path = ChatTableView;
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		855EBC3429FD2E1800F49C9C /* TextInputComponent */ = {

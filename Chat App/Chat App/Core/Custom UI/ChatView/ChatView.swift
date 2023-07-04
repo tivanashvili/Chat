@@ -14,7 +14,12 @@ protocol ChatViewDelegate: AnyObject {
 final class ChatView: UIView {
     
     // MARK: Components
-    private let textInputComponentView = TextInputComponentView()
+    private lazy var textInputComponentView: TextInputComponentView = {
+        let view = TextInputComponentView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -47,6 +52,10 @@ final class ChatView: UIView {
     func refresh(messages: [Message]) {
         self.messages = messages
         self.tableView.reloadData()
+        scrollToBottom()
+    }
+    
+    private func scrollToBottom() {
         let lastRow = messages.count - 1
         let lastIndexPath = IndexPath(row: lastRow, section: 0)
         tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: true)
@@ -54,7 +63,6 @@ final class ChatView: UIView {
     
     // MARK: Setup
     private func setUp(){
-        addSubview(textInputComponentView)
         addSubview(tableView)
         setUpTextInputComponentView()
         setUpTableView()
@@ -72,8 +80,6 @@ final class ChatView: UIView {
     
     private func setUpTextInputComponentView() {
         addSubview(textInputComponentView)
-        textInputComponentView.delegate = self
-        textInputComponentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textInputComponentView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             textInputComponentView.bottomAnchor.constraint(equalTo: bottomAnchor),

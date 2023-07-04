@@ -10,16 +10,43 @@ import UIKit
 final class ConversationViewController: UIViewController {
     
     // MARK: Components
-    private let topChatView: ChatView
-    private let separatorView = UIView()
-    private let bottomChatView: ChatView
-    private let switchButton = DayLightSwitch()
-    private let conversationViewModel: ConversationViewModel
+    private lazy var topChatView: ChatView = {
+        let chatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages(userID: topChatViewUserID))
+        chatView.sendButtonDelegate = self
+        chatView.translatesAutoresizingMaskIntoConstraints = false
+        return chatView
+    }()
+    
+    private lazy var bottomChatView: ChatView = {
+        let chatView = ChatView(loggedInUserID: Constants.userID.bottomChatViewUserID, messages: conversationViewModel.getMessages(userID: bottomChatViewUserID))
+        chatView.sendButtonDelegate = self
+        chatView.translatesAutoresizingMaskIntoConstraints = false
+        return chatView
+    }()
+    
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Constants.SeparatorView.separatorViewColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var switchButton: DayLightSwitch = {
+        let switchButton = DayLightSwitch()
+        switchButton.delegate = self
+        switchButton.translatesAutoresizingMaskIntoConstraints = false
+        return switchButton
+    }()
+    
+    private let conversationViewModel = ConversationViewModel()
+    
+    // MARK: Properties
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return statusBarStyle
     }
+    
     private let topChatViewUserID = Constants.userID.topChatViewUserID
     private let bottomChatViewUserID = Constants.userID.bottomChatViewUserID
     
@@ -28,18 +55,6 @@ final class ConversationViewController: UIViewController {
             UserDefaults.standard.set(isDarkMode, forKey: Constants.userDefaultKey)
             updateAppearance(isDarkMode: isDarkMode)
         }
-    }
-    
-    // MARK: - Initilizers
-    init() {
-        conversationViewModel = ConversationViewModel()
-        topChatView = ChatView(loggedInUserID: Constants.userID.topChatViewUserID, messages: conversationViewModel.getMessages(userID: topChatViewUserID))
-        bottomChatView = ChatView(loggedInUserID: Constants.userID.bottomChatViewUserID, messages: conversationViewModel.getMessages(userID: bottomChatViewUserID))
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -51,14 +66,9 @@ final class ConversationViewController: UIViewController {
     
     func setUp() {
         let subviews = [topChatView, separatorView, bottomChatView, switchButton]
-        
-        separatorView.backgroundColor = Constants.SeparatorView.separatorViewColor
         subviews.forEach { view.addSubview($0) }
         
         setUpConstraintsForSubviews()
-        switchButton.delegate = self
-        topChatView.sendButtonDelegate = self
-        bottomChatView.sendButtonDelegate = self
     }
     
     private func addTapGestureRecognizer() {
@@ -100,10 +110,6 @@ final class ConversationViewController: UIViewController {
     
     // MARK: layout constraints
     private func setUpConstraintsForSubviews() {
-        [topChatView, separatorView, bottomChatView, switchButton].forEach({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        
         NSLayoutConstraint.activate([
             topChatView.topAnchor.constraint(equalTo: switchButton.bottomAnchor),
             topChatView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
